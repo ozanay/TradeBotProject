@@ -7,20 +7,27 @@ import com.trade.bot.client.TradeClientFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.SynchronousQueue;
 
 /**
  * @author Ozan Ay
  */
 public class DataManager {
-    private final List<TradeData> tradeData = new ArrayList<>();
+    private static final SynchronousQueue<TradeData> tradeDataQueue = new SynchronousQueue<>();
     private final TradeClient client;
 
     public DataManager(TradeClientFactory clientFactory) {
         this.client = clientFactory.createClient();
     }
 
-    public void read(TradeSymbol tradeSymbol) {
+    public void read(TradeSymbol tradeSymbol) throws InterruptedException {
         TradeData data = client.getData(tradeSymbol);
-        tradeData.add(data);
+        tradeDataQueue.put(data);
+    }
+
+    public List<TradeData> drainData() {
+        List<TradeData> tradeData = new ArrayList<>();
+        tradeDataQueue.drainTo(tradeData);
+        return tradeData;
     }
 }
