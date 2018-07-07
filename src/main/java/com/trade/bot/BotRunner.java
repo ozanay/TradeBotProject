@@ -16,5 +16,6 @@ public class BotRunner {
             TickerPrice btcUsdtPrice = client.getPrice("BTCUSDT");
             System.out.println("BTC/USDT prices: " + btcUsdtPrice.toString());
         }
+
     }
 }
