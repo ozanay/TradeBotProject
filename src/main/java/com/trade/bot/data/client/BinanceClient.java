@@ -1,4 +1,4 @@
-package com.trade.bot.client;
+package com.trade.bot.data.client;
 
 import com.binance.api.client.BinanceApiClientFactory;
 import com.binance.api.client.BinanceApiRestClient;

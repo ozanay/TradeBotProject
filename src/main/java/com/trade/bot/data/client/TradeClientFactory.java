@@ -1,4 +1,4 @@
-package com.trade.bot.client;
+package com.trade.bot.data.client;
 
 /**
  * @author Ozan Ay

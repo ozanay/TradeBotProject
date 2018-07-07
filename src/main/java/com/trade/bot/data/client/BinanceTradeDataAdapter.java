@@ -1,4 +1,4 @@
-package com.trade.bot.client;
+package com.trade.bot.data.client;
 
 import com.binance.api.client.domain.market.TickerPrice;
 import com.trade.bot.TradeData;
@@ -22,5 +22,13 @@ public class BinanceTradeDataAdapter implements TradeData {
 
     public TradeSymbol getSymbol() {
         return symbol;
+    }
+
+    @Override
+    public String toString() {
+        return "BinanceTradeDataAdapter{" +
+                "price=" + price +
+                ", symbol=" + symbol +
+                '}';
     }
 }

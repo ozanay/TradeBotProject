@@ -1,4 +1,4 @@
-package com.trade.bot.client;
+package com.trade.bot.data.client;
 
 import com.trade.bot.TradeData;
 import com.trade.bot.TradeSymbol;
