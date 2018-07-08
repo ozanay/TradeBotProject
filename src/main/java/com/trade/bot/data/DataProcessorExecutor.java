@@ -13,7 +13,7 @@ public class DataProcessorExecutor {
     private final DataProcessor dataProcessor;
     private final ScheduledExecutorService executorService;
 
-    public DataProcessorExecutor(DataProcessor dataProcessor) {
+    DataProcessorExecutor(DataProcessor dataProcessor) {
         this.dataProcessor = dataProcessor;
         this.executorService = Executors.newSingleThreadScheduledExecutor();
     }

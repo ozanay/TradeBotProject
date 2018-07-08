@@ -51,6 +51,7 @@ public class DataReaderTask implements Runnable {
         TradeData data = null;
         try {
             data = tradeClient.getData(tradeSymbol);
+            LOGGER.log(Level.INFO, "Data is: " + data.toString());
             TradeDataQueue.put(data);
         } catch (InterruptedException exception) {
             LOGGER.log(Level.SEVERE,String.format("Exception occurred while putting data to Q. Data : <%s>", data.toString()));

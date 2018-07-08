@@ -6,7 +6,10 @@ import com.binance.api.client.domain.market.TickerPrice;
 import com.trade.bot.TradeData;
 import com.trade.bot.TradeSymbol;
 
+import java.util.logging.Logger;
+
 public class BinanceClient implements TradeClient {
+    private static final Logger LOGGER = Logger.getLogger(BinanceClient.class.getName());
     private static final String SECRET_KEY = "s8MlZOJKFO2XQhV9dT0lgdJjsKeNo3bPYOjrjwGPZOI5froszAJsoJOTwd4s7EX8";
     private static final String API_KEY = "pEYXmapVpBEILIJ3nnNfwJKYrNkecQVgJ17VuA5KmUTWkg6SEjqn7EyXohFIVL9A";
 

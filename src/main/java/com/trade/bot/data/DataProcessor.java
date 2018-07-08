@@ -11,7 +11,7 @@ public class DataProcessor implements Runnable{
     private final DataReader dataReader;
     private final DataStore dataStore;
 
-    public DataProcessor(DataReader dataReader, DataStore dataStore) {
+    DataProcessor(DataReader dataReader, DataStore dataStore) {
         this.dataReader = dataReader;
         this.dataStore = dataStore;
     }
