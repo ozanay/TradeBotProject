@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 class DataStore {
     private static final Logger LOGGER = Logger.getLogger(DataStore.class.getName());
 
-    static void store(List<TradeData> tradeData) {
+    void store(List<TradeData> tradeData) {
         LOGGER.log(Level.INFO, "Stored data: <" + tradeData + ">");
     }
 }

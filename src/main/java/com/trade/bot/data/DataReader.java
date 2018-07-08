@@ -10,13 +10,12 @@ import java.util.concurrent.Executors;
  * @author Ozan Ay
  */
 class DataReader {
-    private static final int THREAD_SIZE = 1;
     private final ExecutorService executorService;
     private final DataReaderTask dataReaderTask;
 
     DataReader(DataReaderTask dataReaderTask) {
         this.dataReaderTask = dataReaderTask;
-        this.executorService = Executors.newFixedThreadPool(THREAD_SIZE);
+        this.executorService = Executors.newSingleThreadExecutor();
     }
 
     void startRead() {
