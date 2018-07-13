@@ -16,6 +16,10 @@ public class DataProcessor implements Runnable{
         this.dataStore = dataStore;
     }
 
+    void startRead() {
+        dataReader.startRead();
+    }
+
     @Override
     public void run() {
         List<TradeData> tradeData = dataReader.drainData();

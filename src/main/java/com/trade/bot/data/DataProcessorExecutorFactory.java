@@ -13,7 +13,7 @@ public class DataProcessorExecutorFactory {
     private DataProcessorExecutorFactory() {}
 
     public DataProcessorExecutor create() {
-        TradeClient tradeClient = new TradeClientFactory().create();
+        TradeClient tradeClient = TradeClientFactory.create();
         DataReaderTask dataReaderTask = new DataReaderTask(tradeClient, TradeSymbol.BTC_USDT);
         DataReader dataReader = new DataReader(dataReaderTask);
         DataStore dataStore = new DataStore();

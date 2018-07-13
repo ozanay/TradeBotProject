@@ -19,10 +19,8 @@ class DataReader {
     }
 
     void startRead() {
-        if (executorService.isShutdown()) {
-            dataReaderTask.start();
-            executorService.execute(dataReaderTask);
-        }
+        dataReaderTask.start();
+        executorService.execute(dataReaderTask);
     }
 
     void stopRead() {

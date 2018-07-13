@@ -19,6 +19,7 @@ public class DataProcessorExecutor {
     }
 
     public void start() {
+        dataProcessor.startRead();
         executorService.scheduleAtFixedRate(dataProcessor, INITIAL_DELAY, PERIOD, TimeUnit.MINUTES);
     }
 
