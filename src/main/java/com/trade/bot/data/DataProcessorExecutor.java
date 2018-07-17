@@ -8,24 +8,23 @@ import java.util.concurrent.TimeUnit;
  * @author Ozan Ay
  */
 public class DataProcessorExecutor {
-    private static final long INITIAL_DELAY = 1L;
+    private static final long INITIAL_DELAY = 0L;
     private static final long PERIOD = 1L;
-    private final DataProcessor dataProcessor;
+    private final DataProcessorTask dataProcessorTask;
     private final ScheduledExecutorService executorService;
 
-    DataProcessorExecutor(DataProcessor dataProcessor) {
-        this.dataProcessor = dataProcessor;
-        this.executorService = Executors.newSingleThreadScheduledExecutor();
+    DataProcessorExecutor(DataProcessorTask dataProcessorTask) {
+        this.dataProcessorTask = dataProcessorTask;
+        this.executorService = Executors.newSingleThreadScheduledExecutor(new DataProcessorTaskThreadFactory());
     }
 
     public void start() {
-        dataProcessor.startRead();
-        executorService.scheduleAtFixedRate(dataProcessor, INITIAL_DELAY, PERIOD, TimeUnit.MINUTES);
+        executorService.scheduleAtFixedRate(dataProcessorTask, INITIAL_DELAY, PERIOD, TimeUnit.MINUTES);
     }
 
     public void stop() {
         if (!executorService.isShutdown()) {
-            executorService.shutdown();
+            executorService.shutdownNow();
         }
     }
 }

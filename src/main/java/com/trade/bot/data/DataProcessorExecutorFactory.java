@@ -1,8 +1,8 @@
 package com.trade.bot.data;
 
-import com.trade.bot.TradeSymbol;
-import com.trade.bot.data.client.TradeClient;
-import com.trade.bot.data.client.TradeClientFactory;
+import com.trade.bot.TradeData;
+
+import java.util.concurrent.BlockingQueue;
 
 /**
  * @author Ozan Ay
@@ -12,12 +12,8 @@ public class DataProcessorExecutorFactory {
 
     private DataProcessorExecutorFactory() {}
 
-    public DataProcessorExecutor create() {
-        TradeClient tradeClient = TradeClientFactory.create();
-        DataReaderTask dataReaderTask = new DataReaderTask(tradeClient, TradeSymbol.BTC_USDT);
-        DataReader dataReader = new DataReader(dataReaderTask);
-        DataStore dataStore = new DataStore();
-        DataProcessor dataProcessor = new DataProcessor(dataReader, dataStore);
-        return new DataProcessorExecutor(dataProcessor);
+    public DataProcessorExecutor create(BlockingQueue<TradeData> tradeDataQueue) {
+        DataProcessorTask dataProcessorTask = new DataProcessorTask(tradeDataQueue);
+        return new DataProcessorExecutor(dataProcessorTask);
     }
 }

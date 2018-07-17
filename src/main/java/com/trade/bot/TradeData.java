@@ -5,6 +5,4 @@ package com.trade.bot;
  */
 public interface TradeData {
     double getPrice();
-
-    TradeSymbol getSymbol();
 }

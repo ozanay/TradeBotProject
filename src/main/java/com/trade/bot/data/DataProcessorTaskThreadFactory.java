@@ -5,10 +5,10 @@ import java.util.concurrent.ThreadFactory;
 /**
  * @author Ozan Ay
  */
-public class DataReaderTaskThreadFactory implements ThreadFactory {
+public class DataProcessorTaskThreadFactory implements ThreadFactory {
     @Override
     public Thread newThread(Runnable runnable) {
-        Thread thread = new Thread(runnable, "DataReaderTask");
+        Thread thread = new Thread(runnable, "DataProcessorTask");
         thread.setName(thread.getName() + "_" + thread.getId());
         return thread;
     }
