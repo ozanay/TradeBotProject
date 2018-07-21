@@ -1,10 +1,8 @@
 package com.trade.bot.data.inducator;
 
-import com.trade.bot.CircularArray;
 import com.trade.bot.TradeData;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
