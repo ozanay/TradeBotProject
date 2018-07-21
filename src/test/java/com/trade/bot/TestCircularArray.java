@@ -12,23 +12,13 @@ import static org.testng.Assert.assertNull;
 /**
  * @author Ozan Ay
  */
-public class TestCircularList {
+public class TestCircularArray {
     private static final int CAPACITY = 5;
-    private CircularList<Integer> sut;
+    private CircularArray<Integer> sut;
 
     @BeforeMethod
     public void beforeMethod() {
-        sut = new CircularList<>(CAPACITY);
-    }
-
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void index_greater_than_capacity_to_get_element_is_invalid_argument() {
-        sut.get(10);
-    }
-
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void index_less_than_zero_to_get_element_is_invalid_argument() {
-        sut.get(-1);
+        sut = new CircularArray<>(CAPACITY);
     }
 
     @Test
@@ -91,7 +81,7 @@ public class TestCircularList {
 
         int[] expectedValues = new int[] {1, 2, 3, 4, 5};
 
-        List<Integer> all = sut.all();
+        List<Integer> all = sut.toList();
         for (int i = 0; i <all.size(); i++) {
             assertEquals(all.get(i).intValue(), expectedValues[i]);
         }

@@ -7,6 +7,6 @@ import java.util.List;
 /**
  * @author Ozan Ay
  */
-public interface Inducator {
-    AppliedInducatorResult apply(List<TradeData> tradeData);
+public interface Indicator {
+    AppliedIndicatorResult apply(List<TradeData> tradeData);
 }
