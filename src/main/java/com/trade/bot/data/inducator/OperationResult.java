@@ -3,7 +3,7 @@ package com.trade.bot.data.inducator;
 /**
  * @author Ozan Ay
  */
-class OperationResult {
+public class OperationResult {
     private final double min;
     private final double max;
     private final double average;

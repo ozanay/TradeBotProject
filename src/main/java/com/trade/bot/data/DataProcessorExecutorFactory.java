@@ -1,7 +1,7 @@
 package com.trade.bot.data;
 
 import com.trade.bot.TradeData;
-import com.trade.bot.data.inducator.FisherTransform;
+import com.trade.bot.data.inducator.fishertransformation.FisherTransform;
 import com.trade.bot.data.inducator.Indicator;
 import com.trade.bot.data.order.OrderExecutor;
 

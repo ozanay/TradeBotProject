@@ -3,21 +3,21 @@ package com.trade.bot.data.inducator;
 /**
  * @author Ozan Ay
  */
-public class AppliedIndicatorResult {
-    private static final AppliedIndicatorResult EmptyResult = new AppliedIndicatorResult();
+public class IndicatorResult {
+    private static final IndicatorResult EmptyResult = new IndicatorResult();
     private final double trigger;
     private final double fish;
 
-    private AppliedIndicatorResult() {
+    private IndicatorResult() {
         this.trigger = 0;
         this.fish = 0;
     }
 
-    public static AppliedIndicatorResult emptyResult() {
+    public static IndicatorResult emptyResult() {
         return EmptyResult;
     }
 
-    public AppliedIndicatorResult(double trigger, double fish) {
+    public IndicatorResult(double trigger, double fish) {
         this.trigger = trigger;
         this.fish = fish;
     }

@@ -7,7 +7,6 @@ import com.trade.bot.TradeData;
 import com.trade.bot.TradeSymbol;
 
 import java.util.concurrent.BlockingQueue;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -31,6 +30,5 @@ public class BinanceWebSocketClient implements TradeWebSocketClient {
         double price = Double.parseDouble(response.getPrice());
         BinanceTradeData binanceTradeData = new BinanceTradeData(price);
         tradeData.add(binanceTradeData);
-        LOGGER.log(Level.INFO, binanceTradeData.toString() + " was added to Q.");
     }
 }

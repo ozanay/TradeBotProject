@@ -8,5 +8,5 @@ import java.util.List;
  * @author Ozan Ay
  */
 public interface Indicator {
-    AppliedIndicatorResult apply(List<TradeData> tradeData);
+    IndicatorResult apply(List<TradeData> tradeData);
 }

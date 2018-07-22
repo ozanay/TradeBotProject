@@ -9,10 +9,10 @@ import java.util.logging.Logger;
 public class OrderExecutor {
     private static final Logger LOGGER = Logger.getLogger(OrderExecutor.class.getName());
     public void buy(double price) {
-        LOGGER.log(Level.INFO,"BUY price: " + price);
+        LOGGER.info("BUY price: " + price);
     }
 
     public void sell(double price) {
-        LOGGER.log(Level.INFO,"SELL price: " + price);
+        LOGGER.info("SELL price: " + price);
     }
 }
