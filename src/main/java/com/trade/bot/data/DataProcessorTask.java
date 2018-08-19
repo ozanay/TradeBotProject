@@ -36,6 +36,7 @@ public class DataProcessorTask implements Runnable {
         } else {
             int dataSize = tradeData.size();
             LOGGER.info("Data size is " + dataSize);
+
             double price = tradeData.get(dataSize - 1).getPrice();
             LOGGER.info("Latest price is " + price);
 

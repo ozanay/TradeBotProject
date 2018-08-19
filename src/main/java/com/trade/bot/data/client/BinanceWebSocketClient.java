@@ -7,13 +7,11 @@ import com.trade.bot.TradeData;
 import com.trade.bot.TradeSymbol;
 
 import java.util.concurrent.BlockingQueue;
-import java.util.logging.Logger;
 
 /**
  * @author Ozan Ay
  */
 public class BinanceWebSocketClient implements TradeWebSocketClient {
-    private static final Logger LOGGER = Logger.getLogger(BinanceWebSocketClient.class.getName());
     private static final BinanceApiWebSocketClient client = BinanceApiClientFactory.newInstance().newWebSocketClient();
     private final BlockingQueue<TradeData> tradeData;
 
