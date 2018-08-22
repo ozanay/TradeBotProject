@@ -8,8 +8,14 @@ import java.util.Date;
  * @author Ozan Ay
  */
 public class DateUtil {
+    private static final String DATE_FORMAT = "dd-M-yyyy hh:mm:ss";
+    private static final SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
+
     public static Date fromString(String dateString) throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-        return simpleDateFormat.parse(dateString);
+        return formatter.parse(dateString);
+    }
+
+    public static String format(Date date) {
+        return formatter.format(date);
     }
 }

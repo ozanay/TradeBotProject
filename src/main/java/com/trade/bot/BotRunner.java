@@ -11,12 +11,12 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class BotRunner {
     public static void main(String[] args) {
-        TradeClient tradeClient = TradeClientFactory.create();
-        tradeClient.getData(TradeSymbol.BTC_USDT);
+//        TradeClient tradeClient = TradeClientFactory.create();
+//        tradeClient.getData(TradeSymbol.BTC_USDT);
 
-//        BlockingQueue<TradeData> tradeDataQueue = new LinkedBlockingQueue<>();
-//        new BinanceWebSocketClient(tradeDataQueue).subscribeEvent();
-//        DataProcessorExecutor dataProcessorExecutor = DataProcessorExecutorFactory.instance.create(tradeDataQueue);
-//        dataProcessorExecutor.start();
+        BlockingQueue<TradeData> tradeDataQueue = new LinkedBlockingQueue<>();
+        new BinanceWebSocketClient(tradeDataQueue).subscribeEvent();
+        DataProcessorExecutor dataProcessorExecutor = DataProcessorExecutorFactory.instance.create(tradeDataQueue);
+        dataProcessorExecutor.start();
     }
 }

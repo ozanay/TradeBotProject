@@ -7,6 +7,7 @@ import com.trade.bot.TradeData;
 import com.trade.bot.TradeSymbol;
 
 import java.util.concurrent.BlockingQueue;
+import java.util.logging.Logger;
 
 /**
  * @author Ozan Ay
@@ -24,7 +25,7 @@ public class BinanceWebSocketClient implements TradeWebSocketClient {
         client.onAggTradeEvent(TradeSymbol.BTC_USDT.getValue().toLowerCase(), this::addSubscribedData);
     }
 
-    private void addSubscribedData(AggTradeEvent response) {
+        private void addSubscribedData(AggTradeEvent response) {
         double price = Double.parseDouble(response.getPrice());
         BinanceTradeData binanceTradeData = new BinanceTradeData(price);
         tradeData.add(binanceTradeData);

@@ -30,10 +30,20 @@ public class BinanceClient implements TradeClient {
     }
 
     public TradeData getData(TradeSymbol tradeSymbol) {
-        List<Candlestick> candlesticks = client.getCandlestickBars(tradeSymbol.getValue().toUpperCase(), CandlestickInterval.HOURLY);
-        Candlestick candlestick = candlesticks.get(0);
-        LOGGER.info("Close is " + candlestick.getClose());
-        LOGGER.info("Close time is " + new Date(candlestick.getCloseTime()).toString());
+        List<Candlestick> candlesticks = client.getCandlestickBars(tradeSymbol.getValue().toUpperCase(), CandlestickInterval.FOUR_HOURLY);
+        LOGGER.info("Stick size is " + candlesticks.size());
+        int last = candlesticks.size() - 1;
+        Candlestick candlestick = candlesticks.get(last);
+        LOGGER.info("Open time is " + DateUtil.format(new Date(candlestick.getOpenTime())));
+        LOGGER.info("Open price is " + candlestick.getOpen());
+        Date closeTime = new Date(candlestick.getCloseTime());
+        LOGGER.info("Close time is " + DateUtil.format(closeTime));
+        LOGGER.info("Close price is " + candlestick.getClose());
+
+        Date current = new Date();
+        LOGGER.info("Current time is " + DateUtil.format(current));
+
+        LOGGER.info("Is time in current bar " + current.compareTo(closeTime));
 //        TickerPrice tickerPrice = client.getPrice(tradeSymbol.getValue());
 //        return new BinanceTradeDataAdapter(tickerPrice);
         return null;

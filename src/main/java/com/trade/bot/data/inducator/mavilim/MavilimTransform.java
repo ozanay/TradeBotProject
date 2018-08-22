@@ -1,6 +1,6 @@
 package com.trade.bot.data.inducator.mavilim;
 
-import com.trade.bot.Price;
+import com.trade.bot.TradeData;
 import com.trade.bot.math.WeightedMovingAverage;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import static com.trade.bot.Constants.FIRST;
  * @author Ozan Ay
  */
 public class MavilimTransform {
-    private List<Price> closingPrices = new ArrayList<>();
+    private List<TradeData> closingPrices = new ArrayList<>();
     private List<Double> M1s = new ArrayList<>();
     private List<Double> M2s = new ArrayList<>();
     private List<Double> M3s = new ArrayList<>();
@@ -28,8 +28,8 @@ public class MavilimTransform {
         this.warmUpLimit = calculateWarmUpLimit(mavilim);
     }
 
-    public double apply(Price closingPrice) {
-        addLastClosingPrice(closingPrice);
+    public double apply(TradeData tradeData) {
+        addLastTradeData(tradeData);
         removeDeprecatedPrice();
 
         addMValues();
@@ -38,8 +38,8 @@ public class MavilimTransform {
         return calculateMaviValue();
     }
 
-    public boolean warmUp(Price closingPrice) {
-        addLastClosingPrice(closingPrice);
+    public boolean warmUp(TradeData tradeData) {
+        addLastTradeData(tradeData);
         addMValues();
         return this.warmUpLimit == closingPrices.size();
     }
@@ -48,8 +48,8 @@ public class MavilimTransform {
         return WeightedMovingAverage.calculate(M5s, this.mavilim.getSMAL());
     }
 
-    private void addLastClosingPrice(Price closingPrice) {
-        closingPrices.add(FIRST, closingPrice);
+    private void addLastTradeData(TradeData tradeData) {
+        closingPrices.add(FIRST, tradeData);
     }
 
     private void removeDeprecatedPrice() {
@@ -83,7 +83,7 @@ public class MavilimTransform {
     }
 
     private void addM1() {
-        List<Double> prices = this.closingPrices.stream().sorted(Price::compareByDate).map(Price::getValue).collect(Collectors.toList());
+        List<Double> prices = this.closingPrices.stream().sorted(TradeData::compareByDate).map(TradeData::getPrice).collect(Collectors.toList());
         addMvalue(prices, M1s, this.mavilim.getFirstMovingAverageLength());
     }
 
