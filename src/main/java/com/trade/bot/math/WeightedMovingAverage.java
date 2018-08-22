@@ -1,29 +1,28 @@
 package com.trade.bot.math;
 
-import com.trade.bot.Price;
-
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static com.trade.bot.Constants.FIRST;
 
 /**
  * @author Ozan Ay
  */
 public class WeightedMovingAverage {
-    private static final int FIRST = 0;
-
-    public static double calculate(List<Price> prices, int timePeriod) {
-        if (timePeriod < 0 || timePeriod > prices.size()) {
+    public static double calculate(List<Double> values, int timePeriod) {
+        if (timePeriod < 0 || timePeriod > values.size()) {
             throw new IllegalArgumentException("Invalid time period.");
         }
 
-        double weightedMovingAverage = 0;
+        double weightedMovingAverage = 0.0;
         if (timePeriod > 0) {
-            List<Price> sortedPrices = prices.stream().sorted(Price::compareTo).collect(Collectors.toList());
-            double weightedSum = 0;
-            for (int i = timePeriod; i > 0; i--) {
-                weightedSum += sortedPrices.remove(FIRST).getValue() * i;
+            double weightedSum = 0.0;
+            int index = 0;
+            for (int weight = timePeriod; weight > 0; weight--) {
+                weightedSum += values.get(index) * weight;
+                index++;
             }
-            weightedMovingAverage = weightedSum / (timePeriod  * (timePeriod + 1) / 2);
+
+            weightedMovingAverage = weightedSum / (timePeriod  * (timePeriod + 1) * 0.5);
         }
 
         return weightedMovingAverage;

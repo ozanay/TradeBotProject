@@ -30,7 +30,7 @@ public class Price {
         return date;
     }
 
-    public int compareTo(Price price) {
+    public int compareByDate(Price price) {
         return this.date.compareTo(price.getDate());
     }
 }

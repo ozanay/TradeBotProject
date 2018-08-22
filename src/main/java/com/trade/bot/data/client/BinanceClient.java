@@ -7,7 +7,9 @@ import com.binance.api.client.domain.market.CandlestickInterval;
 import com.binance.api.client.domain.market.TickerPrice;
 import com.trade.bot.TradeData;
 import com.trade.bot.TradeSymbol;
+import com.trade.bot.util.DateUtil;
 
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -28,9 +30,12 @@ public class BinanceClient implements TradeClient {
     }
 
     public TradeData getData(TradeSymbol tradeSymbol) {
-        List<Candlestick> candlesticks = client.getCandlestickBars("NEOETH", CandlestickInterval.WEEKLY);
-        candlesticks.get(0).getClose();
-        TickerPrice tickerPrice = client.getPrice(tradeSymbol.getValue());
-        return new BinanceTradeDataAdapter(tickerPrice);
+        List<Candlestick> candlesticks = client.getCandlestickBars(tradeSymbol.getValue().toUpperCase(), CandlestickInterval.HOURLY);
+        Candlestick candlestick = candlesticks.get(0);
+        LOGGER.info("Close is " + candlestick.getClose());
+        LOGGER.info("Close time is " + new Date(candlestick.getCloseTime()).toString());
+//        TickerPrice tickerPrice = client.getPrice(tradeSymbol.getValue());
+//        return new BinanceTradeDataAdapter(tickerPrice);
+        return null;
     }
 }
