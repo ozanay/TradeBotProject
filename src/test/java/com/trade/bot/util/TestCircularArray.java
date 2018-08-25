@@ -1,5 +1,6 @@
-package com.trade.bot;
+package com.trade.bot.util;
 
+import com.trade.bot.util.CircularArray;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 

@@ -1,38 +1,38 @@
-package com.trade.bot.data.inducator.mavilim;
+package com.trade.bot.data.inducator;
 
 /**
  * @author Ozan Ay
  */
-public class Mavilim {
+class Mavilim {
     private int firstMovingAverageLength;
     private int secondMovingAverageLength;
 
-    public Mavilim(int firstMovingAverageLength, int secondMovingAverageLength) {
+    Mavilim(int firstMovingAverageLength, int secondMovingAverageLength) {
         this.firstMovingAverageLength = firstMovingAverageLength;
         this.secondMovingAverageLength = secondMovingAverageLength;
     }
 
-    public int getFirstMovingAverageLength() {
+    int getFirstMovingAverageLength() {
         return firstMovingAverageLength;
     }
 
-    public int getSecondMovingAverageLength() {
+    int getSecondMovingAverageLength() {
         return secondMovingAverageLength;
     }
 
-    public int getTMAL() {
+    int getTMAL() {
         return firstMovingAverageLength + secondMovingAverageLength;
     }
 
-    public int getFMAL() {
+    int getFMAL() {
         return secondMovingAverageLength + getTMAL();
     }
 
-    public int getFTMAL() {
+    int getFTMAL() {
         return getTMAL() + getFMAL();
     }
 
-    public int getSMAL() {
+    int getSMAL() {
         return getFMAL() + getFTMAL();
     }
 }

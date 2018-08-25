@@ -1,7 +1,8 @@
-package com.trade.bot.data.client;
+package com.trade.bot.data.client.binance;
 
 import com.trade.bot.TradeData;
 import com.trade.bot.TradeSymbol;
+import com.trade.bot.data.client.binance.BinanceClient;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -16,7 +17,7 @@ public class TestBinanceClient {
 
     @BeforeMethod
     public void beforeMethod() {
-        sut = BinanceClient.getInstance();
+        sut = new BinanceClient();
     }
 
     @Test

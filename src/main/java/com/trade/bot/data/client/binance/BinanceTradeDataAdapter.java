@@ -1,7 +1,8 @@
-package com.trade.bot.data.client;
+package com.trade.bot.data.client.binance;
 
 import com.binance.api.client.domain.event.AggTradeEvent;
 import com.binance.api.client.domain.market.TickerPrice;
+import com.google.common.base.Ticker;
 import com.trade.bot.TradeData;
 import com.trade.bot.TradeSymbol;
 import com.trade.bot.util.DateUtil;
@@ -19,6 +20,11 @@ public class BinanceTradeDataAdapter implements TradeData {
     BinanceTradeDataAdapter(AggTradeEvent tradeEvent) {
         this.price = Double.parseDouble(tradeEvent.getPrice());
         this.eventTime = new Date(tradeEvent.getEventTime());
+    }
+
+    BinanceTradeDataAdapter(TickerPrice tickerPrice) {
+        this.price = Double.parseDouble(tickerPrice.getPrice());
+        this.eventTime = new Date();
     }
 
     @Override

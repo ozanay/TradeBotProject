@@ -1,4 +1,4 @@
-package com.trade.bot.data.inducator.mavilim;
+package com.trade.bot.data.inducator;
 
 import com.trade.bot.TradeData;
 import com.trade.bot.math.WeightedMovingAverage;
@@ -12,7 +12,7 @@ import static com.trade.bot.Constants.FIRST;
 /**
  * @author Ozan Ay
  */
-public class MavilimTransform {
+public class MavilimTransform implements Indicator {
     private List<TradeData> closingPrices = new ArrayList<>();
     private List<Double> M1s = new ArrayList<>();
     private List<Double> M2s = new ArrayList<>();
@@ -23,21 +23,24 @@ public class MavilimTransform {
     private Mavilim mavilim;
     private int warmUpLimit;
 
-    public MavilimTransform(Mavilim mavilim) {
+    MavilimTransform(Mavilim mavilim) {
         this.mavilim = mavilim;
         this.warmUpLimit = calculateWarmUpLimit(mavilim);
     }
 
-    public double apply(TradeData tradeData) {
+    @Override
+    public IndicatorResult apply(TradeData tradeData) {
         addLastTradeData(tradeData);
-        removeDeprecatedPrice();
+        removeDeprecatedTradeData();
 
         addMValues();
         removeDeprecatedMValues();
 
-        return calculateMaviValue();
+        double value = calculateMaviValue();
+        return new IndicatorResult<>(value);
     }
 
+    @Override
     public boolean warmUp(TradeData tradeData) {
         addLastTradeData(tradeData);
         addMValues();
@@ -52,7 +55,7 @@ public class MavilimTransform {
         closingPrices.add(FIRST, tradeData);
     }
 
-    private void removeDeprecatedPrice() {
+    private void removeDeprecatedTradeData() {
         int deprecatedPriceIndex = closingPrices.size() - 1;
         closingPrices.remove(deprecatedPriceIndex);
     }
