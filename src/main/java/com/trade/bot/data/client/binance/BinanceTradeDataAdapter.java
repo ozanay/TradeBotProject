@@ -14,8 +14,13 @@ import java.util.Date;
  * @author Ozan Ay
  */
 public class BinanceTradeDataAdapter implements TradeData {
-    private final double price;
-    private final Date eventTime;
+    private double price;
+    private Date eventTime;
+
+    BinanceTradeDataAdapter(String priceStr, long time) {
+        this.price = Double.parseDouble(priceStr);
+        this.eventTime = new Date(time);
+    }
 
     BinanceTradeDataAdapter(AggTradeEvent tradeEvent) {
         this.price = Double.parseDouble(tradeEvent.getPrice());

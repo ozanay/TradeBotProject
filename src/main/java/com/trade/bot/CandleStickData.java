@@ -1,18 +1,14 @@
 package com.trade.bot;
 
-import java.util.Date;
-
 /**
  * @author Ozan Ay
  */
 public interface CandleStickData {
-    Date getOpenTime();
-    double getOpenPrice();
+    TradeData getOpenTradeData();
+    TradeData getCloseTradeData();
     double getHighPrice();
     double getLowPrice();
-    double getClosePrice();
     String getVolume();
-    Date getCloseTime();
     String getQuoteAssetVolume();
     Long getNumberOfTrades();
     String getTakerBuyBaseAssetVolume();

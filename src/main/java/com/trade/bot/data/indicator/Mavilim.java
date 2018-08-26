@@ -1,4 +1,4 @@
-package com.trade.bot.data.inducator;
+package com.trade.bot.data.indicator;
 
 /**
  * @author Ozan Ay

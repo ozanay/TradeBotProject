@@ -3,20 +3,17 @@ package com.trade.bot.data.client.binance;
 
 import com.binance.api.client.domain.market.Candlestick;
 import com.trade.bot.CandleStickData;
-
-import java.util.Date;
+import com.trade.bot.TradeData;
 
 /**
  * @author Ozan Ay
  */
 public class BinanceCandleStickDataAdapter implements CandleStickData {
-    private Date openTime;
-    private double open;
+    private TradeData openTradeData;
+    private TradeData closeTradeData;
     private double high;
     private double low;
-    private double close;
     private String volume;
-    private Date closeTime;
     private String quoteAssetVolume;
     private Long numberOfTrades;
     private String takerBuyBaseAssetVolume;
@@ -27,13 +24,11 @@ public class BinanceCandleStickDataAdapter implements CandleStickData {
             throw new IllegalArgumentException("Candlestick cannot be empty.");
         }
 
-        this.openTime = new Date(candlestick.getOpenTime());
-        this.open = Double.parseDouble(candlestick.getOpen());
+        this.openTradeData = new BinanceTradeDataAdapter(candlestick.getOpen(), candlestick.getOpenTime());
+        this.closeTradeData = new BinanceTradeDataAdapter(candlestick.getClose(), candlestick.getCloseTime());
         this.high = Double.parseDouble(candlestick.getHigh());
         this.low = Double.parseDouble(candlestick.getLow());
-        this.close = Double.parseDouble(candlestick.getClose());
         this.volume = candlestick.getVolume();
-        this.closeTime = new Date(candlestick.getCloseTime());
         this.quoteAssetVolume = candlestick.getQuoteAssetVolume();
         this.numberOfTrades = candlestick.getNumberOfTrades();
         this.takerBuyBaseAssetVolume = candlestick.getTakerBuyBaseAssetVolume();
@@ -42,13 +37,13 @@ public class BinanceCandleStickDataAdapter implements CandleStickData {
 
 
     @Override
-    public Date getOpenTime() {
-        return this.openTime;
+    public TradeData getOpenTradeData() {
+        return this.openTradeData;
     }
 
     @Override
-    public double getOpenPrice() {
-        return this.open;
+    public TradeData getCloseTradeData() {
+        return this.closeTradeData;
     }
 
     @Override
@@ -62,18 +57,8 @@ public class BinanceCandleStickDataAdapter implements CandleStickData {
     }
 
     @Override
-    public double getClosePrice() {
-        return this.close;
-    }
-
-    @Override
     public String getVolume() {
         return this.volume;
-    }
-
-    @Override
-    public Date getCloseTime() {
-        return this.closeTime;
     }
 
     @Override

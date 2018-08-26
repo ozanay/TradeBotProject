@@ -1,4 +1,4 @@
-package com.trade.bot.data.inducator;
+package com.trade.bot.data.indicator;
 
 import com.trade.bot.TradeData;
 
@@ -8,5 +8,7 @@ import com.trade.bot.TradeData;
 public interface Indicator {
     IndicatorResult apply(TradeData tradeData);
 
-    boolean warmUp(TradeData tradeData);
+    IndicatorResult applyInCurrentBar(TradeData tradeData);
+
+    void warmUp(TradeData tradeData);
 }

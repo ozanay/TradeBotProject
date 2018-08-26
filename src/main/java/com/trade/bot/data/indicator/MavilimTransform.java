@@ -1,4 +1,4 @@
-package com.trade.bot.data.inducator;
+package com.trade.bot.data.indicator;
 
 import com.trade.bot.TradeData;
 import com.trade.bot.math.WeightedMovingAverage;
@@ -19,13 +19,12 @@ public class MavilimTransform implements Indicator {
     private List<Double> M3s = new ArrayList<>();
     private List<Double> M4s = new ArrayList<>();
     private List<Double> M5s = new ArrayList<>();
+    private List<Double> maviValues = new ArrayList<>();
 
     private Mavilim mavilim;
-    private int warmUpLimit;
 
     MavilimTransform(Mavilim mavilim) {
         this.mavilim = mavilim;
-        this.warmUpLimit = calculateWarmUpLimit(mavilim);
     }
 
     @Override
@@ -36,15 +35,38 @@ public class MavilimTransform implements Indicator {
         addMValues();
         removeDeprecatedMValues();
 
-        double value = calculateMaviValue();
-        return new IndicatorResult<>(value);
+        double mavi = calculateMaviValue();
+        return new IndicatorResult<>(mavi);
     }
 
     @Override
-    public boolean warmUp(TradeData tradeData) {
+    public IndicatorResult applyInCurrentBar(TradeData tradeData) {
         addLastTradeData(tradeData);
         addMValues();
-        return this.warmUpLimit == closingPrices.size();
+        double mavi = calculateMaviValue();
+
+        removeLastTradeData();
+        removeLastMValues();
+        return new IndicatorResult<>(mavi);
+    }
+
+    @Override
+    public void warmUp(TradeData tradeData) {
+        addLastTradeData(tradeData);
+        addMValues();
+        addMaviValue();
+    }
+
+    private void removeLastMValues() {
+        M1s.remove(FIRST);
+        M2s.remove(FIRST);
+        M3s.remove(FIRST);
+        M4s.remove(FIRST);
+        M5s.remove(FIRST);
+    }
+
+    private void removeLastTradeData() {
+        closingPrices.remove(FIRST);
     }
 
     private double calculateMaviValue() {
@@ -58,6 +80,10 @@ public class MavilimTransform implements Indicator {
     private void removeDeprecatedTradeData() {
         int deprecatedPriceIndex = closingPrices.size() - 1;
         closingPrices.remove(deprecatedPriceIndex);
+    }
+
+    private void addMaviValue() {
+        addMvalue(M5s, maviValues, this.mavilim.getSMAL());
     }
 
     private void addMValues() {
@@ -111,10 +137,5 @@ public class MavilimTransform implements Indicator {
             double m = WeightedMovingAverage.calculate(pricesFrom, length);
             addTo.add(FIRST, m);
         }
-    }
-
-    private int calculateWarmUpLimit(Mavilim mavilim) {
-        return (mavilim == null) ? 0 : mavilim.getFirstMovingAverageLength() + mavilim.getSecondMovingAverageLength() + mavilim.getTMAL()
-                + mavilim.getFMAL() + mavilim.getFTMAL() + mavilim.getSMAL() + 1;
     }
 }
