@@ -6,18 +6,17 @@ import com.binance.api.client.domain.event.AggTradeEvent;
 import com.trade.bot.TradeData;
 import com.trade.bot.TradeSymbol;
 import com.trade.bot.data.client.TradeWebSocketClient;
-
-import java.util.concurrent.BlockingQueue;
+import com.trade.bot.data.decisionmaker.CommercialDecisionMaker;
 
 /**
  * @author Ozan Ay
  */
 public class BinanceWebSocketClient implements TradeWebSocketClient {
     private static final BinanceApiWebSocketClient client = BinanceApiClientFactory.newInstance().newWebSocketClient();
-    private final BlockingQueue<TradeData> tradeDataQueue;
+    private final CommercialDecisionMaker commercialDecisionMaker;
 
-    BinanceWebSocketClient(BlockingQueue<TradeData> tradeDataQueue) {
-        this.tradeDataQueue = tradeDataQueue;
+    BinanceWebSocketClient(CommercialDecisionMaker commercialDecisionMaker) {
+        this.commercialDecisionMaker = commercialDecisionMaker;
     }
 
     @Override
@@ -27,6 +26,6 @@ public class BinanceWebSocketClient implements TradeWebSocketClient {
 
     private void addSubscribedData(AggTradeEvent response) {
         TradeData tradeData = new BinanceTradeDataAdapter(response);
-        tradeDataQueue.add(tradeData);
+        commercialDecisionMaker.decide(tradeData);
     }
 }

@@ -79,7 +79,7 @@ public class MavilimTransform implements Indicator {
     }
 
     private void addM1() {
-        List<Double> prices = this.closingPrices.stream().sorted(TradeData::compareByDate).map(TradeData::getPrice).collect(Collectors.toList());
+        List<Double> prices = this.closingPrices.stream().map(TradeData::getPrice).collect(Collectors.toList());
         addMvalue(prices, M1s, this.mavilim.getFirstMovingAverageLength());
     }
 

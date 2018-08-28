@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a5a3dd86-48c4-47aa-9ba6-22c2543dcf4f" name="Default" comment="Web Socket client will hold the decision maker.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trade/bot/CommercialDecision.java" afterDir="false" />
+    <list default="true" id="a5a3dd86-48c4-47aa-9ba6-22c2543dcf4f" name="Default" comment="Mavilim decision maker is implemented.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/trade/bot/data/decisionmaker/CommercialDecisionMakerFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/trade/bot/data/indicator/TestMavilimTransform.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/TradeClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/TradeClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/binance/BinanceClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/binance/BinanceClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trade/bot/data/decisionmaker/CommercialDecisionMaker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trade/bot/data/decisionmaker/CommercialDecisionMaker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trade/bot/BotRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trade/bot/BotRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/TradeWebSocketClientFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/TradeWebSocketClientFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/binance/BinanceWebSocketClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/binance/BinanceWebSocketClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/binance/BinanceWebSocketClientFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/binance/BinanceWebSocketClientFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/trade/bot/data/decisionmaker/MavilimDecisionMaker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trade/bot/data/decisionmaker/MavilimDecisionMaker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trade/bot/data/indicator/Indicator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trade/bot/data/indicator/Indicator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/trade/bot/data/indicator/MavilimTransform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trade/bot/data/indicator/MavilimTransform.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trade/bot/math/WeightedMovingAverage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trade/bot/math/MathUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/trade/bot/math/TestWeightedMovingAverage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/trade/bot/math/TestMathUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trade/bot/math/MathUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trade/bot/math/MathUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/trade/bot/data/client/binance/TestBinanceClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/trade/bot/math/TestMathUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/trade/bot/math/TestMathUtil.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -56,29 +58,29 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="class" value="6" />
-          <entry key="java" value="101" />
+          <entry key="java" value="113" />
           <entry key="xml" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="6" />
-          <entry key="JAVA" value="101" />
+          <entry key="JAVA" value="113" />
           <entry key="XML" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="15" />
-          <entry key="java" value="7274" />
-          <entry key="txt" value="106" />
+          <entry key="java" value="7923" />
+          <entry key="txt" value="145" />
           <entry key="xml" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="7274" />
-          <entry key="PLAIN_TEXT" value="121" />
+          <entry key="JAVA" value="7923" />
+          <entry key="PLAIN_TEXT" value="160" />
           <entry key="XML" value="1" />
         </counts>
       </usages-collector>
@@ -89,11 +91,79 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/decisionmaker/MavilimDecisionMaker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="372">
-              <caret line="45" column="9" lean-forward="true" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="9" />
+            <state relative-caret-position="61">
+              <caret line="60" selection-start-line="60" selection-end-line="60" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/decisionmaker/CommercialDecisionMakerFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="304">
+              <caret line="16" column="53" selection-start-line="16" selection-start-column="53" selection-end-line="16" selection-end-column="53" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/indicator/MavilimTransform.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="467">
+              <caret line="83" column="5" lean-forward="true" selection-start-line="83" selection-start-column="5" selection-end-line="83" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1272#1273#0" expanded="true" />
+                <element signature="e#1323#1324#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/trade/bot/data/indicator/TestMavilimTransform.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="152">
+              <caret line="8" selection-start-line="8" selection-end-line="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/trade/bot/math/TestMathUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="415">
+              <caret line="26" column="47" selection-start-line="26" selection-start-column="47" selection-end-line="26" selection-end-column="47" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/math/MathUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="152">
+              <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/TradeWebSocketClientFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="171">
+              <caret line="9" column="39" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -105,25 +175,16 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/TradeData.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="171">
-              <caret line="9" column="4" lean-forward="true" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="8" />
+              <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="8" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/TradeClient.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/indicator/IndicatorFactory.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="171">
-              <caret line="14" column="103" selection-start-line="14" selection-start-column="103" selection-end-line="14" selection-end-column="103" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/indicator/MavilimTransform.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+              <caret line="9" column="54" selection-start-line="9" selection-start-column="41" selection-end-line="9" selection-end-column="54" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -149,10 +210,15 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>Closing time for current bar is</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -160,9 +226,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/test/java/com/trade/bot/TestCircularArray.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/trade/bot/math/TestWeightedMovingAverage.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/BinanceClient.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/TradeData.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/Price.java" />
@@ -174,10 +237,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/BinanceWebSocketClient.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/Market.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/TradeClientFactory.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/binance/BinanceWebSocketClientFactory.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/TradeWebSocketClient.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/binance/BinanceWebSocketClient.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/TradeWebSocketClientFactory.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/DataProcessorExecutorFactory.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/IndicatorEnum.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/inducator/IndicatorEnum.java" />
@@ -194,7 +254,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/CandleStickIntervalConverter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/binance/CandleStickIntervalConverter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/binance/BinanceCandleStickIntervalConverter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/BotRunner.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/DataProcessorTask.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/CandleStickData.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/binance/BinanceTradeDataAdapter.java" />
@@ -204,13 +263,20 @@
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/indicator/IndicatorFactory.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/indicator/Indicator.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/math/WeightedMovingAverage.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/math/MathUtil.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/indicator/MavilimTransform.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/decisionmaker/CommercialDecisionMaker.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/CommercialDecision.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/TradeClient.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/binance/BinanceClient.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/binance/BinanceWebSocketClientFactory.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/TradeWebSocketClientFactory.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/binance/BinanceWebSocketClient.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/decisionmaker/CommercialDecisionMakerFactory.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/BotRunner.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/decisionmaker/MavilimDecisionMaker.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/trade/bot/data/indicator/TestMavilimTransform.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/trade/bot/math/TestMathUtil.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/math/MathUtil.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/indicator/MavilimTransform.java" />
       </list>
     </option>
   </component>
@@ -244,7 +310,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-10" />
+    <option name="x" value="668" />
+    <option name="y" value="-23" />
     <option name="width" value="980" />
     <option name="height" value="1040" />
   </component>
@@ -387,7 +454,7 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="bot" type="462c0819:PsiDirectoryNode" />
-              <item name="binance" type="462c0819:PsiDirectoryNode" />
+              <item name="indicator" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TradeBot" type="b2602c69:ProjectViewProjectNode" />
@@ -408,10 +475,10 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="Adap&#9;PSI&#9;JAVA://com.trade.bot.data.client.BinanceTradeDataAdapter&#10;Date&#9;FILE&#9;file://C:/Users/OPC/Desktop/Binance/TradeBotProject/src/main/java/com/trade/bot/util/DateUtil.java&#10;Circula&#9;FILE&#9;file://C:/Users/OPC/Desktop/Binance/TradeBotProject/src/main/java/com/trade/bot/CircularArray.java" />
+    <property name="SearchEverywhereHistoryKey" value="Mavili&#9;FILE&#9;file://C:/Users/OPC/Desktop/Binance/TradeBotProject/src/main/java/com/trade/bot/data/indicator/MavilimTransform.java&#10;Adap&#9;PSI&#9;JAVA://com.trade.bot.data.client.BinanceTradeDataAdapter&#10;Date&#9;FILE&#9;file://C:/Users/OPC/Desktop/Binance/TradeBotProject/src/main/java/com/trade/bot/util/DateUtil.java&#10;Circula&#9;FILE&#9;file://C:/Users/OPC/Desktop/Binance/TradeBotProject/src/main/java/com/trade/bot/CircularArray.java" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1535482954273" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1535488919890" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -453,7 +520,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.BotRunner">
+  <component name="RunManager" selected="TestNG.TestMathUtil">
     <configuration name="BotRunner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.trade.bot.BotRunner" />
       <module name="TradeBotProject" />
@@ -524,9 +591,17 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="SUITE_NAME" value="" />
       <option name="PACKAGE_NAME" value="com.trade.bot.math" />
       <option name="MAIN_CLASS_NAME" value="com.trade.bot.math.TestMathUtil" />
+      <option name="GROUP_NAME" value="" />
+      <option name="PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="OUTPUT_DIRECTORY" value="" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <option name="PROPERTIES_FILE" value="" />
       <properties />
       <listeners />
       <method v="2">
@@ -569,10 +644,10 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.BotRunner" />
-        <item itemvalue="TestNG.TestMathUtil.weighted_moving_average_is_calculated_successfully" />
-        <item itemvalue="TestNG.TestCircularArray" />
         <item itemvalue="TestNG.TestMathUtil" />
+        <item itemvalue="TestNG.TestMathUtil.weighted_moving_average_is_calculated_successfully" />
+        <item itemvalue="Application.BotRunner" />
+        <item itemvalue="TestNG.TestCircularArray" />
         <item itemvalue="TestNG.TestListOperationApplier.operation_applier_successfully_returns_min_max_and_average" />
       </list>
     </recent_temporary>
@@ -603,7 +678,7 @@
       <workItem from="1535230355069" duration="3656000" />
       <workItem from="1535287358313" duration="1899000" />
       <workItem from="1535289289163" duration="5681000" />
-      <workItem from="1535478220765" duration="5077000" />
+      <workItem from="1535478220765" duration="10125000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1530962005617</created>
@@ -738,43 +813,50 @@
       <option name="project" value="LOCAL" />
       <updated>1535298748430</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Mavilim decision maker is implemented.">
+      <created>1535483585195</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1535483585195</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="TestWeightedMovingAverage_weighted_moving_average_is_calculated_successfully - 2018.08.19 at 16h 04m 07s.xml">
-      <configuration name="TestWeightedMovingAverage.weighted_moving_average_is_calculated_successfully" configurationId="TestNG" />
-    </history-entry>
-    <history-entry file="TestWeightedMovingAverage - 2018.08.22 at 16h 50m 10s.xml">
-      <configuration name="TestWeightedMovingAverage" configurationId="TestNG" />
-    </history-entry>
-    <history-entry file="TestWeightedMovingAverage - 2018.08.22 at 16h 53m 15s.xml">
-      <configuration name="TestWeightedMovingAverage" configurationId="TestNG" />
-    </history-entry>
-    <history-entry file="TestWeightedMovingAverage - 2018.08.22 at 16h 53m 47s.xml">
-      <configuration name="TestWeightedMovingAverage" configurationId="TestNG" />
-    </history-entry>
-    <history-entry file="TestWeightedMovingAverage - 2018.08.22 at 16h 55m 07s.xml">
-      <configuration name="TestWeightedMovingAverage" configurationId="TestNG" />
-    </history-entry>
-    <history-entry file="TestWeightedMovingAverage - 2018.08.22 at 16h 57m 33s.xml">
-      <configuration name="TestWeightedMovingAverage" configurationId="TestNG" />
-    </history-entry>
-    <history-entry file="TestWeightedMovingAverage - 2018.08.22 at 16h 58m 03s.xml">
-      <configuration name="TestWeightedMovingAverage" configurationId="TestNG" />
-    </history-entry>
-    <history-entry file="TestCircularArray - 2018.08.22 at 16h 58m 14s.xml">
-      <configuration name="TestCircularArray" configurationId="TestNG" />
-    </history-entry>
-    <history-entry file="TestWeightedMovingAverage_weighted_moving_average_is_calculated_successfully - 2018.08.22 at 17h 49m 23s.xml">
-      <configuration name="TestWeightedMovingAverage.weighted_moving_average_is_calculated_successfully" configurationId="TestNG" />
-    </history-entry>
     <history-entry file="TestWeightedMovingAverage_weighted_moving_average_is_calculated_successfully - 2018.08.22 at 17h 49m 55s.xml">
       <configuration name="TestWeightedMovingAverage.weighted_moving_average_is_calculated_successfully" configurationId="TestNG" />
     </history-entry>
+    <history-entry file="TestMathUtil_weighted_moving_average_is_calculated_successfully - 2018.08.28 at 23h 22m 03s.xml">
+      <configuration name="TestMathUtil.weighted_moving_average_is_calculated_successfully" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="TestMathUtil_weighted_moving_average_is_calculated_successfully - 2018.08.28 at 23h 28m 09s.xml">
+      <configuration name="TestMathUtil.weighted_moving_average_is_calculated_successfully" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="TestMathUtil_weighted_moving_average_is_calculated_successfully - 2018.08.28 at 23h 29m 13s.xml">
+      <configuration name="TestMathUtil.weighted_moving_average_is_calculated_successfully" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="TestMathUtil_weighted_moving_average_is_calculated_successfully - 2018.08.28 at 23h 29m 37s.xml">
+      <configuration name="TestMathUtil.weighted_moving_average_is_calculated_successfully" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="TestMathUtil_weighted_moving_average_is_calculated_successfully - 2018.08.28 at 23h 34m 58s.xml">
+      <configuration name="TestMathUtil.weighted_moving_average_is_calculated_successfully" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="TestMathUtil - 2018.08.28 at 23h 36m 55s.xml">
+      <configuration name="TestMathUtil" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="TestMathUtil - 2018.08.28 at 23h 37m 22s.xml">
+      <configuration name="TestMathUtil" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="TestMathUtil - 2018.08.28 at 23h 38m 27s.xml">
+      <configuration name="TestMathUtil" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="TestMathUtil - 2018.08.28 at 23h 38m 47s.xml">
+      <configuration name="TestMathUtil" configurationId="TestNG" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="114097000" />
+    <option name="totallyTimeSpent" value="119145000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -789,17 +871,17 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18389262" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4992908" weight="0.24899329" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="UI Designer" order="4" />
-      <window_info id="Favorites" order="5" side_tool="true" weight="0.3295302" />
+      <window_info id="Favorites" order="5" sideWeight="0.50070924" side_tool="true" weight="0.24899329" />
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32907802" />
-      <window_info anchor="bottom" x="0" y="292" width="1536" height="239" id="Run" order="2" weight="0.4" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.7007092" />
+      <window_info anchor="bottom" x="0" y="292" width="1536" height="239" id="Run" order="2" weight="0.40425533" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.5829787" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32907802" />
@@ -815,7 +897,7 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.27651006" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="right" id="Maven Projects" order="5" weight="0.3294271" />
+      <window_info anchor="right" id="Maven Projects" order="5" weight="0.32885906" />
       <window_info anchor="right" id="Database" order="6" show_stripe_button="false" weight="0.3295302" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
@@ -884,7 +966,8 @@
     <MESSAGE value="Changing" />
     <MESSAGE value="Client adapters and new functions." />
     <MESSAGE value="Web Socket client will hold the decision maker." />
-    <option name="LAST_COMMIT_MESSAGE" value="Web Socket client will hold the decision maker." />
+    <MESSAGE value="Mavilim decision maker is implemented." />
+    <option name="LAST_COMMIT_MESSAGE" value="Mavilim decision maker is implemented." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -900,6 +983,18 @@
           <line>31</line>
           <properties />
           <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/decisionmaker/MavilimDecisionMaker.java</url>
+          <line>56</line>
+          <properties />
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/decisionmaker/MavilimDecisionMaker.java</url>
+          <line>60</line>
+          <properties />
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -929,20 +1024,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/java/text/SimpleDateFormat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3117">
-          <caret line="438" column="13" selection-start-line="438" selection-start-column="13" selection-end-line="438" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="26" column="37" selection-start-line="26" selection-start-column="37" selection-end-line="26" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/github/binance-exchange/binance-java-api/-71556ef307-1/binance-java-api--71556ef307-1.jar!/com/binance/api/client/BinanceApiCallback.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
@@ -988,31 +1069,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/TradeWebSocketClientFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="15" column="9" lean-forward="true" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/github/binance-exchange/binance-java-api/-71556ef307-1/binance-java-api--71556ef307-1.jar!/com/binance/api/client/domain/market/Candlestick.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="438">
           <caret line="32" column="44" selection-start-line="22" selection-start-column="4" selection-end-line="32" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/trade/bot/data/client/binance/TestBinanceClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="22" column="9" lean-forward="true" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
-          <folding>
-            <element signature="e#480#481#0" expanded="true" />
-            <element signature="e#521#522#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1081,13 +1141,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/binance/BinanceWebSocketClientFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="12" column="58" selection-start-line="12" selection-start-column="58" selection-end-line="12" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/util/EnumUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
@@ -1109,43 +1162,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/BotRunner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" column="31" lean-forward="true" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/order/OrderExecutor.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/DataProcessorTaskThreadFactory.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/DataStore.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/DataProcessorTask.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/DataProcessorExecutorFactory.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/DataProcessorExecutor.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/binance/BinanceWebSocketClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="23" column="57" selection-start-line="23" selection-start-column="57" selection-end-line="23" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/CandleStickData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
           <caret line="12" column="22" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/indicator/IndicatorFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1186,23 +1212,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/math/MathUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/trade/bot/math/TestMathUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/decisionmaker/CommercialDecisionMaker.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
@@ -1214,16 +1223,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
           <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/indicator/MavilimTransform.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1254,16 +1253,117 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/TradeData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
-          <caret line="9" column="4" lean-forward="true" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="8" />
+          <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/indicator/IndicatorFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" column="54" selection-start-line="9" selection-start-column="41" selection-end-line="9" selection-end-column="54" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/binance/BinanceWebSocketClientFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/TradeWebSocketClientFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" column="39" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/binance/BinanceWebSocketClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="19" column="5" lean-forward="true" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/trade/bot/data/client/binance/TestBinanceClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+          <folding>
+            <element signature="e#480#481#0" expanded="true" />
+            <element signature="e#521#522#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/BotRunner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/decisionmaker/CommercialDecisionMakerFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="16" column="53" selection-start-line="16" selection-start-column="53" selection-end-line="16" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/decisionmaker/MavilimDecisionMaker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="45" column="9" lean-forward="true" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="9" />
+        <state relative-caret-position="61">
+          <caret line="60" selection-start-line="60" selection-end-line="60" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/trade/bot/data/indicator/TestMavilimTransform.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/trade/bot/math/TestMathUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="415">
+          <caret line="26" column="47" selection-start-line="26" selection-start-column="47" selection-end-line="26" selection-end-column="47" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/math/MathUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/indicator/MavilimTransform.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="467">
+          <caret line="83" column="5" lean-forward="true" selection-start-line="83" selection-start-column="5" selection-end-line="83" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1272#1273#0" expanded="true" />
+            <element signature="e#1323#1324#0" expanded="true" />
           </folding>
         </state>
       </provider>

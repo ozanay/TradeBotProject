@@ -13,14 +13,16 @@ public class MathUtil {
 
         double weightedMovingAverage = 0.0;
         if (timePeriod > 0) {
-            double weightedSum = 0.0;
-            int index = 0;
+            double weightedAverageSum = 0.0;
+            double weightSum = 0.0;
+            int index = values.size() - 1;
             for (int weight = timePeriod; weight > 0; weight--) {
-                weightedSum += values.get(index) * weight;
-                index++;
+                weightedAverageSum += values.get(index) * weight;
+                weightSum += weight;
+                index--;
             }
 
-            weightedMovingAverage = weightedSum / (timePeriod  * (timePeriod + 1) * 0.5);
+            weightedMovingAverage = weightedAverageSum / weightSum;
         }
 
         return weightedMovingAverage;

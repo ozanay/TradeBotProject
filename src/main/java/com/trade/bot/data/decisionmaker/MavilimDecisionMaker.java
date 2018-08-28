@@ -26,7 +26,7 @@ public class MavilimDecisionMaker implements CommercialDecisionMaker {
     private Date closingTimeForCurrentBar;
     private double maviValue;
 
-    public MavilimDecisionMaker(Indicator indicator, TradeClient tradeClient, TradeSymbol tradeSymbol,
+    MavilimDecisionMaker(Indicator indicator, TradeClient tradeClient, TradeSymbol tradeSymbol,
                                 TradeClientCandleStickInterval candleStickInterval) {
         this.indicator = indicator;
         this.tradeClient = tradeClient;
@@ -36,7 +36,6 @@ public class MavilimDecisionMaker implements CommercialDecisionMaker {
 
     @Override
     public void decide(TradeData tradeData) {
-        LOGGER.info("Closing time for current bar is " + DateUtil.format(closingTimeForCurrentBar));
         Date now = new Date();
         boolean isInCurrentBar = now.compareTo(this.closingTimeForCurrentBar) < 0;
         if (isInCurrentBar) {
@@ -56,8 +55,11 @@ public class MavilimDecisionMaker implements CommercialDecisionMaker {
         }
 
         TradeData closeTradeData = candleStickData.get(currentBarIndex - 1).getCloseTradeData();
-        setCloseTime(closeTradeData.getEventTime());
-        setMaviValue(closeTradeData);
+        this.closingTimeForCurrentBar = closeTradeData.getEventTime();
+        LOGGER.info("Closing time for WARMED UP data is " + DateUtil.format(this.closingTimeForCurrentBar));
+        LOGGER.info("Close price for WARMED UP data is: " + closeTradeData.getPrice());
+        this.maviValue = (double) indicator.apply(closeTradeData).getValue();
+        LOGGER.info("Warmed up MAVI value: " + this.maviValue);
     }
 
     private void updateMaviValueAndCloseTime() {
@@ -76,12 +78,12 @@ public class MavilimDecisionMaker implements CommercialDecisionMaker {
 
     private void setMaviValue(TradeData closeTradeData) {
         this.maviValue = (double) indicator.apply(closeTradeData).getValue();
-        LOGGER.info("Mavi value is updated. Value: " + this.maviValue);
+        LOGGER.info("MAVI VALUE IS UPDATED. VALUE: " + this.maviValue);
     }
 
     private void setCloseTime(Date closeTime) {
         this.closingTimeForCurrentBar = closeTime;
-        LOGGER.info("Current bar changed and new close time is " + DateUtil.format(closeTime));
+        LOGGER.info("CURRENT BAR IS CHANGED AND CLOSE TIME: " + DateUtil.format(closeTime));
     }
 
     private void buy(TradeData tradeData) {
