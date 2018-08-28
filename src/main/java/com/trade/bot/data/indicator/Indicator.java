@@ -8,7 +8,5 @@ import com.trade.bot.TradeData;
 public interface Indicator {
     IndicatorResult apply(TradeData tradeData);
 
-    IndicatorResult applyInCurrentBar(TradeData tradeData);
-
     void warmUp(TradeData tradeData);
 }

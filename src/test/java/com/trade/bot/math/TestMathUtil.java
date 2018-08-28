@@ -12,11 +12,11 @@ import static org.testng.Assert.assertEquals;
 /**
  * @author Ozan Ay
  */
-public class TestWeightedMovingAverage {
+public class TestMathUtil {
 
     @Test(dataProvider = "pricesAndWeightedMovingAverages")
     public void weighted_moving_average_is_calculated_successfully(List<Double> values, int timePeriod, double expectedAverage) {
-        double average = WeightedMovingAverage.calculate(values, timePeriod);
+        double average = MathUtil.calculateWeightedMovingAverage(values, timePeriod);
 
         assertEquals(average, expectedAverage);
     }

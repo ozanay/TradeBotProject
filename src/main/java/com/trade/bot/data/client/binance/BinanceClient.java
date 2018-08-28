@@ -12,6 +12,7 @@ import com.trade.bot.data.client.TradeClient;
 import com.trade.bot.data.client.TradeClientCandleStickInterval;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -24,18 +25,25 @@ class BinanceClient implements TradeClient {
     private static final BinanceApiRestClient client = factory.newRestClient();
 
     @Override
-    public TradeData getData(TradeSymbol tradeSymbol) {
-        TickerPrice tickerPrice = client.getPrice(tradeSymbol.getValue());
-        return new BinanceTradeDataAdapter(tickerPrice);
-    }
-
-    @Override
     public List<CandleStickData> getCandleStickData(TradeSymbol tradeSymbol, TradeClientCandleStickInterval tradeInterval) {
         CandlestickInterval candlestickInterval = BinanceCandleStickIntervalConverter.from(tradeInterval);
         List<Candlestick> candlestickBars = client.getCandlestickBars(tradeSymbol.getValue().toUpperCase(), candlestickInterval);
         List<CandleStickData> candleStickData = new ArrayList<>();
         candlestickBars.forEach(candlestick -> candleStickData.add(new BinanceCandleStickDataAdapter(candlestick)));
         return candleStickData;
+    }
+
+    @Override
+    public CandleStickData getCurrentCandleStickData(TradeSymbol tradeSymbol, TradeClientCandleStickInterval interval) {
+        CandlestickInterval candlestickInterval = BinanceCandleStickIntervalConverter.from(interval);
+        List<Candlestick> candlestickBars = client.getCandlestickBars(tradeSymbol.getValue().toUpperCase(), candlestickInterval);
+        int currentCandleStickBarIndex = candlestickBars.size() - 1;
+        return new BinanceCandleStickDataAdapter(candlestickBars.get(currentCandleStickBarIndex));
+    }
+
+    @Override
+    public TradeData getCurrentCloseTradeData(TradeSymbol tradeSymbol, TradeClientCandleStickInterval interval) {
+        return getCurrentCandleStickData(tradeSymbol, interval).getCloseTradeData();
     }
 
     @Override

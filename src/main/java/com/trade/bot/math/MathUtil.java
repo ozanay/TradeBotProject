@@ -2,13 +2,11 @@ package com.trade.bot.math;
 
 import java.util.List;
 
-import static com.trade.bot.Constants.FIRST;
-
 /**
  * @author Ozan Ay
  */
-public class WeightedMovingAverage {
-    public static double calculate(List<Double> values, int timePeriod) {
+public class MathUtil {
+    public static double calculateWeightedMovingAverage(List<Double> values, int timePeriod) {
         if (timePeriod < 0 || timePeriod > values.size()) {
             throw new IllegalArgumentException("Invalid time period.");
         }
