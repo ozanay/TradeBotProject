@@ -5,21 +5,19 @@ import com.trade.bot.math.MathUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.trade.bot.Constants.FIRST;
 
 /**
  * @author Ozan Ay
  */
-public class MavilimTransform implements Indicator {
-    private List<TradeData> closingPrices = new ArrayList<>();
-    private List<Double> M1s = new ArrayList<>();
-    private List<Double> M2s = new ArrayList<>();
-    private List<Double> M3s = new ArrayList<>();
-    private List<Double> M4s = new ArrayList<>();
-    private List<Double> M5s = new ArrayList<>();
-
+class MavilimTransform implements Indicator {
+    private List<Double> prices = new ArrayList<>();
+    private List<Double> m1s = new ArrayList<>();
+    private List<Double> m2s = new ArrayList<>();
+    private List<Double> m3s = new ArrayList<>();
+    private List<Double> m4s = new ArrayList<>();
+    private List<Double> m5s = new ArrayList<>();
     private Mavilim mavilim;
 
     MavilimTransform(Mavilim mavilim) {
@@ -28,81 +26,74 @@ public class MavilimTransform implements Indicator {
 
     @Override
     public IndicatorResult apply(TradeData tradeData) {
-        addLastTradeData(tradeData);
-        removeDeprecatedTradeData();
+        warmUp(tradeData);
 
-        addMValues();
-        removeDeprecatedMValues();
+        double maviValue = calculateMaviValue();
 
-        double mavi = MathUtil.calculateWeightedMovingAverage(M5s, this.mavilim.getSMAL());
-        return new IndicatorResult<>(mavi);
+        removeDeprecatedValues();
+
+        return new IndicatorResult<>(maviValue);
     }
 
     @Override
     public void warmUp(TradeData tradeData) {
-        addLastTradeData(tradeData);
-        addMValues();
+        prices.add(tradeData.getPrice());
+
+        double m1 = calculateM1();
+        m1s.add(m1);
+
+        double m2 = calculateM2();
+        m2s.add(m2);
+
+        double m3 = calculateM3();
+        m3s.add(m3);
+
+        double m4 = calculateM4();
+        m4s.add(m4);
+
+        double m5 = calculateM5();
+        m5s.add(m5);
     }
 
-    private void addLastTradeData(TradeData tradeData) {
-        closingPrices.add(FIRST, tradeData);
+    private void removeDeprecatedValues() {
+        prices.remove(FIRST);
+        m1s.remove(FIRST);
+        m2s.remove(FIRST);
+        m3s.remove(FIRST);
+        m4s.remove(FIRST);
+        m5s.remove(FIRST);
     }
 
-    private void removeDeprecatedTradeData() {
-        int deprecatedPriceIndex = closingPrices.size() - 1;
-        closingPrices.remove(deprecatedPriceIndex);
+    private double calculateM1() {
+        return calculateM(prices, mavilim.getFirstMovingAverageLength());
     }
 
-    private void addMValues() {
-        addM1();
-        addM2();
-        addM3();
-        addM4();
-        addM5();
+    private double calculateM2() {
+        return calculateM(m1s, mavilim.getSecondMovingAverageLength());
     }
 
-    private void removeDeprecatedMValues() {
-        int deprecatedM1Index = M1s.size() - 1;
-        M1s.remove(deprecatedM1Index);
-
-        int deprecatedM2Index = M2s.size() - 1;
-        M2s.remove(deprecatedM2Index);
-
-        int deprecatedM3Index = M3s.size() - 1;
-        M3s.remove(deprecatedM3Index);
-
-        int deprecatedM4Index = M4s.size() - 1;
-        M4s.remove(deprecatedM4Index);
-
-        int deprecatedM5Index = M5s.size() - 1;
-        M5s.remove(deprecatedM5Index);
+    private double calculateM3() {
+        return calculateM(m2s, mavilim.getTMAL());
     }
 
-    private void addM1() {
-        List<Double> prices = this.closingPrices.stream().map(TradeData::getPrice).collect(Collectors.toList());
-        addMvalue(prices, M1s, this.mavilim.getFirstMovingAverageLength());
+    private double calculateM4() {
+        return calculateM(m3s, mavilim.getFMAL());
     }
 
-    private void addM2() {
-        addMvalue(M1s, M2s, this.mavilim.getSecondMovingAverageLength());
+    private double calculateM5() {
+        return calculateM(m4s, mavilim.getFTMAL());
     }
 
-    private void addM3() {
-        addMvalue(M2s, M3s, this.mavilim.getTMAL());
+    private double calculateMaviValue() {
+        return calculateM(m5s, mavilim.getSMAL());
     }
 
-    private void addM4() {
-        addMvalue(M3s, M4s, this.mavilim.getFMAL());
-    }
-
-    private void addM5() {
-        addMvalue(M4s, M5s, this.mavilim.getFTMAL());
-    }
-
-    private static void addMvalue(List<Double> pricesFrom, List<Double> addTo, int length) {
-        if (pricesFrom.size() >= length) {
-            double weightedMovingAverage = MathUtil.calculateWeightedMovingAverage(pricesFrom, length);
-            addTo.add(FIRST, weightedMovingAverage);
+    private double calculateM(List<Double> values, int period) {
+        double m = 0.0;
+        if (values != null && values.size() >= period) {
+            m = MathUtil.calculateWeightedMovingAverage(values, period);
         }
+
+        return m;
     }
 }

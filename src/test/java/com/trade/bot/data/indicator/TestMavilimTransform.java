@@ -35,7 +35,7 @@ public class TestMavilimTransform {
         //Given
         List<Double> prices = getPrices();
         int size = prices.size();
-        for (int i = 0; i < size - 2; i++) {
+        for (int i = 0; i < size - 1; i++) {
             sut.warmUp(new TestTradeData(prices.get(i), new Date()));
         }
         
@@ -61,23 +61,25 @@ public class TestMavilimTransform {
     
     private List<Double> getMs(List<Double> values, int period) {
         List<Double> Ms = new ArrayList<>();
-        int counterForEachWMA = 0;
-        List<Double> wmaList = new ArrayList<>();
-        for (double value: values) {
-            if (counterForEachWMA < period) {
-                wmaList.add(value);
-                counterForEachWMA++;
-            } else {
-                double m = MathUtil.calculateWeightedMovingAverage(wmaList, period);
-                Ms.add(m);
-                wmaList.remove(FIRST);
-                wmaList.add(value);
+        if (values != null) {
+            int counterForEachWMA = 0;
+            List<Double> wmaList = new ArrayList<>();
+            for (double value : values) {
+                if (counterForEachWMA < period) {
+                    wmaList.add(value);
+                    counterForEachWMA++;
+                } else {
+                    double m = MathUtil.calculateWeightedMovingAverage(wmaList, period);
+                    Ms.add(m);
+                    wmaList.remove(FIRST);
+                    wmaList.add(value);
+                }
             }
+
+            double lastM = MathUtil.calculateWeightedMovingAverage(wmaList, period);
+            Ms.add(lastM);
         }
-    
-        double lastM = MathUtil.calculateWeightedMovingAverage(wmaList, period);
-        Ms.add(lastM);
-        
+
         return Ms;
     }
     
