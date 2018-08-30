@@ -7,6 +7,7 @@ import com.trade.bot.TradeSymbol;
 import com.trade.bot.data.client.TradeClient;
 import com.trade.bot.data.client.TradeClientCandleStickInterval;
 import com.trade.bot.data.indicator.Indicator;
+import com.trade.bot.logging.LoggerProvider;
 import com.trade.bot.util.DateUtil;
 
 import java.util.Date;
@@ -17,7 +18,7 @@ import java.util.logging.Logger;
  * @author Ozan Ay
  */
 public class MavilimDecisionMaker implements CommercialDecisionMaker {
-    private static final Logger LOGGER = Logger.getLogger(MavilimDecisionMaker.class.getName());
+    private static final Logger LOGGER = LoggerProvider.getLogger(MavilimDecisionMaker.class.getName());
     private final Indicator indicator;
     private final TradeClient tradeClient;
     private final TradeSymbol tradeSymbol;

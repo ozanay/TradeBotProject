@@ -4,20 +4,19 @@ import com.binance.api.client.BinanceApiClientFactory;
 import com.binance.api.client.BinanceApiRestClient;
 import com.binance.api.client.domain.market.Candlestick;
 import com.binance.api.client.domain.market.CandlestickInterval;
-import com.binance.api.client.domain.market.TickerPrice;
 import com.trade.bot.CandleStickData;
 import com.trade.bot.TradeData;
 import com.trade.bot.TradeSymbol;
 import com.trade.bot.data.client.TradeClient;
 import com.trade.bot.data.client.TradeClientCandleStickInterval;
+import com.trade.bot.logging.LoggerProvider;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
 class BinanceClient implements TradeClient {
-    private static final Logger LOGGER = Logger.getLogger(BinanceClient.class.getName());
+    private static final Logger LOGGER = LoggerProvider.getLogger(BinanceClient.class.getName());
     private static final String SECRET_KEY = "s8MlZOJKFO2XQhV9dT0lgdJjsKeNo3bPYOjrjwGPZOI5froszAJsoJOTwd4s7EX8";
     private static final String API_KEY = "pEYXmapVpBEILIJ3nnNfwJKYrNkecQVgJ17VuA5KmUTWkg6SEjqn7EyXohFIVL9A";
 
