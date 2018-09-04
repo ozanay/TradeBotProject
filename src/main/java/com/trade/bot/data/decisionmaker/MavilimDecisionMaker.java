@@ -26,6 +26,7 @@ public class MavilimDecisionMaker implements CommercialDecisionMaker {
     private CommercialDecision latestDecision = CommercialDecision.NONE;
     private Date closingTimeForCurrentBar;
     private double maviValue;
+    private boolean isLatestTradeInPreviousBars = true;
 
     MavilimDecisionMaker(Indicator indicator, TradeClient tradeClient, TradeSymbol tradeSymbol,
                                 TradeClientCandleStickInterval candleStickInterval) {
@@ -67,13 +68,16 @@ public class MavilimDecisionMaker implements CommercialDecisionMaker {
         TradeData currentCloseTradeData = tradeClient.getCurrentCloseTradeData(tradeSymbol, candleStickInterval);
         setCloseTime(currentCloseTradeData.getEventTime());
         setMaviValue(currentCloseTradeData);
+        isLatestTradeInPreviousBars = true;
     }
 
     private void tradeIfLatestOrderChanged(TradeData tradeData) {
-        if (tradeData.getPrice() < this.maviValue && !this.latestDecision.equals(CommercialDecision.SELL)) {
-            sell(tradeData);
-        } else if (tradeData.getPrice() >= this.maviValue && !this.latestDecision.equals(CommercialDecision.BUY)) {
-            buy(tradeData);
+        if (isLatestTradeInPreviousBars) {
+            if (tradeData.getPrice() < this.maviValue && !this.latestDecision.equals(CommercialDecision.SELL)) {
+                sell(tradeData);
+            } else if (tradeData.getPrice() >= this.maviValue && !this.latestDecision.equals(CommercialDecision.BUY)) {
+                buy(tradeData);
+            }
         }
     }
 
@@ -90,10 +94,12 @@ public class MavilimDecisionMaker implements CommercialDecisionMaker {
     private void buy(TradeData tradeData) {
         this.latestDecision = CommercialDecision.BUY;
         tradeClient.buy(tradeData);
+        isLatestTradeInPreviousBars = false;
     }
 
     private void sell(TradeData tradeData) {
         this.latestDecision = CommercialDecision.SELL;
         tradeClient.sell(tradeData);
+        isLatestTradeInPreviousBars = false;
     }
 }
