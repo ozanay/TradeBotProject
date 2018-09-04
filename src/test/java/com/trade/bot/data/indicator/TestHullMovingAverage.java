@@ -2,6 +2,7 @@ package com.trade.bot.data.indicator;
 
 import com.trade.bot.TradeData;
 import com.trade.bot.math.MathUtil;
+import com.trade.bot.util.ListUtil;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -42,7 +43,8 @@ public class TestHullMovingAverage {
 
     @Test
     public void hull_moving_average_is_successfully_calculated() {
-        List<TradeData> testTradeData = getTestTradeData();
+        List<TradeData> testTradeData = Arrays.asList(new TestTradeData(1.0, new Date()), new TestTradeData(2.0, new Date()), new TestTradeData(3.0, new Date()),
+                new TestTradeData(4.0, new Date()), new TestTradeData(5.0, new Date()));
 
         double actualHullMovingAverage = (double) sut.apply(testTradeData).getValue();
 
@@ -51,22 +53,22 @@ public class TestHullMovingAverage {
         assertEquals(actualHullMovingAverage, expectedHullMovingAverage);
     }
 
-    private List<TradeData> getTestTradeData() {
-        return Arrays.asList(new TestTradeData(1.0, new Date()), new TestTradeData(2.0, new Date()), new TestTradeData(3.0, new Date()),
-                new TestTradeData(4.0, new Date()), new TestTradeData(5.0, new Date()));
-    }
-
     private double calculateHullMovingAverage(List<TradeData> tradeData) {
-        List<Double> prices = tradeData.stream().map(TradeData::getPrice).collect(Collectors.toList());
-        List<Double> hullDiffs = new ArrayList<>();
-        for (int i = 0; i < SQRT_PERIOD; i++) {
-            double hullDiff = calculateHullDiff(prices);
-            hullDiffs.add(FIRST, hullDiff);
-            int lastPriceIndex = prices.size() - 1;
-            prices.remove(lastPriceIndex);
+        double hma = 0.0;
+        if (ListUtil.hasAnyValue(tradeData)) {
+            List<Double> prices = tradeData.stream().map(TradeData::getPrice).collect(Collectors.toList());
+            List<Double> hullDiffs = new ArrayList<>();
+            for (int i = 0; i < SQRT_PERIOD; i++) {
+                double hullDiff = calculateHullDiff(prices);
+                hullDiffs.add(FIRST, hullDiff);
+                int lastPriceIndex = prices.size() - 1;
+                prices.remove(lastPriceIndex);
+            }
+
+            hma = calculateWeightedMovingAverageWithSqrtPeriod(hullDiffs);
         }
 
-        return calculateWeightedMovingAverageWithSqrtPeriod(hullDiffs);
+        return hma;
     }
 
     private double calculateHullDiff(List<Double> prices) {

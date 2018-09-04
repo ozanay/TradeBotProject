@@ -12,14 +12,15 @@ import java.io.IOException;
 
 public class BotRunner {
     public static void main(String[] args) throws IOException {
-        int fmal = 3;
-        int smal = 5;
+        // int fmal = 3;
+        // int smal = 5;
+        int period = 16;
         String logPath = "C:\\Users\\OPC\\Desktop\\logs\\trade_bot.log";
         LoggerProvider.configureLoggerProvider(logPath);
 
-        Indicator indicator = IndicatorFactory.getIndicator(IndicatorEnum.MAVILIM, fmal, smal);
+        Indicator indicator = IndicatorFactory.getIndicator(IndicatorEnum.HULL_MOVING_AVERAGE, period);
         TradeClient tradeClient = TradeClientFactory.create(Market.BINANCE);
-        CommercialDecisionMaker commercialDecisionMaker = CommercialDecisionMakerFactory.create(IndicatorEnum.MAVILIM, indicator, tradeClient,
+        CommercialDecisionMaker commercialDecisionMaker = CommercialDecisionMakerFactory.create(IndicatorEnum.HULL_MOVING_AVERAGE, indicator, tradeClient,
                         TradeSymbol.BTC_USDT, TradeClientCandleStickInterval.FIFTEEN_MINUTES);
         commercialDecisionMaker.warmUp();
 

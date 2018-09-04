@@ -10,6 +10,7 @@ import com.trade.bot.TradeSymbol;
 import com.trade.bot.data.client.TradeClient;
 import com.trade.bot.data.client.TradeClientCandleStickInterval;
 import com.trade.bot.logging.LoggerProvider;
+import com.trade.bot.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,11 +48,11 @@ class BinanceClient implements TradeClient {
 
     @Override
     public void buy(TradeData tradeData) {
-        LOGGER.info("BOUGHT at " + tradeData.getPrice());
+        LOGGER.info("BOUGHT price: " + tradeData.getPrice() + " at " + DateUtil.format(tradeData.getEventTime()));
     }
 
     @Override
     public void sell(TradeData tradeData) {
-        LOGGER.info("SOLD at " + tradeData.getPrice());
+        LOGGER.info("SOLD price: " + tradeData.getPrice() + " at " + DateUtil.format(tradeData.getEventTime()));
     }
 }
