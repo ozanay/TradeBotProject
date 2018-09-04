@@ -1,22 +1,22 @@
 package com.trade.bot.data.indicator;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.trade.bot.TradeData;
 import com.trade.bot.math.MathUtil;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.trade.bot.util.ListUtil;
 
 /**
  * @author Ozan Ay
  */
-public class HullMovingAverage implements Indicator {
-    private List<Double> prices = new ArrayList<>();
-    private List<Double> hullDiffs = new ArrayList<>();
+class HullMovingAverage implements Indicator {
     private final int period;
     private final int halfPeriod;
     private final int sqrtPeriod;
     
-    public HullMovingAverage(int period) {
+    HullMovingAverage(int period) {
         if (period < 0) {
             throw new IllegalArgumentException("Period cannot be less than zero.");
         }
@@ -25,51 +25,58 @@ public class HullMovingAverage implements Indicator {
         this.halfPeriod = (int) Math.round(period * 0.5);
         this.sqrtPeriod = (int) Math.round(Math.sqrt(period));
     }
-    
+
     @Override
-    public IndicatorResult apply(TradeData tradeData) {
-        warmUp(tradeData);
-        double hullMovingAverage = calculateHullMovingAverage();
-        return new IndicatorResult<>(hullMovingAverage);
+    public IndicatorResult applyData(TradeData tradeData) {
+        // TODO this function will be remove soon.
+        return null;
     }
-    
+
     @Override
     public void warmUp(TradeData tradeData) {
-        prices.add(tradeData.getPrice());
-        double diff = calculateHullDiff();
-        hullDiffs.add(diff);
+        // TODO this function will be remove soon.
     }
-    
-    private double calculateHullDiff() {
-        double doubleWmaWithHalfPeriod = calculateDoubleWeightedMovingAverageWithHalfPeriod();
-        double wmaWithFullPeriod = calculateWeightedMovingAverageWithFullPeriod();
-        return doubleWmaWithHalfPeriod - wmaWithFullPeriod;
-    }
-    
-    private double calculateDoubleWeightedMovingAverageWithHalfPeriod() {
-        double result = 0.0;
-        if (prices.size() >= halfPeriod) {
-            result = 2 * MathUtil.calculateWeightedMovingAverage(prices, halfPeriod);
+
+    @Override
+    public IndicatorResult apply(List<TradeData> tradeDataList) {
+        double hullMovingAverage = 0.0;
+        if (ListUtil.hasAnyValue(tradeDataList)) {
+            List<Double> prices = tradeDataList.stream().map(TradeData::getPrice).collect(Collectors.toList());
+            List<Double> hullDiffs = createHullDifferenceList(prices);
+
+            hullMovingAverage = calculateHullMovingAverage(hullDiffs);
         }
-        
-        return result;
+
+        return new IndicatorResult<>(hullMovingAverage);
     }
-    
-    private double calculateWeightedMovingAverageWithFullPeriod() {
-        double result = 0.0;
-        if (prices.size() >= period) {
-            result = MathUtil.calculateWeightedMovingAverage(prices, period);
+
+    private List<Double> createHullDifferenceList(List<Double> prices) {
+        LinkedList<Double> hullDiffs = new LinkedList<>();
+        for (int i = 0; i < sqrtPeriod; i++) {
+            double hullDiff = calculateHullDiff(prices);
+            hullDiffs.addFirst(hullDiff);
+            int lastPriceIndex = prices.size() - 1;
+            prices.remove(lastPriceIndex);
         }
-    
-        return result;
+
+        return hullDiffs;
     }
-    
-    private double calculateHullMovingAverage() {
-        double result = 0.0;
-        if (hullDiffs.size() >= sqrtPeriod) {
-            result = MathUtil.calculateWeightedMovingAverage(hullDiffs, sqrtPeriod);
-        }
-    
-        return result;
+
+    private double calculateHullDiff(List<Double> prices) {
+        double doubleWmaWithHalfPeriod = calculateDoubleWmaWithHalfPeriod(prices);
+        double wmaWithPeriod = calculateWmaWithPeriod(prices);
+        return doubleWmaWithHalfPeriod - wmaWithPeriod;
+    }
+
+    private double calculateDoubleWmaWithHalfPeriod(List<Double> prices) {
+        return 2 * MathUtil.calculateWeightedMovingAverage(prices, halfPeriod);
+    }
+
+    private double calculateWmaWithPeriod(List<Double> prices) {
+        return MathUtil.calculateWeightedMovingAverage(prices, period);
+    }
+
+    private double calculateHullMovingAverage(List<Double> hullDiffs) {
+        return MathUtil.calculateWeightedMovingAverage(hullDiffs, sqrtPeriod);
     }
 }

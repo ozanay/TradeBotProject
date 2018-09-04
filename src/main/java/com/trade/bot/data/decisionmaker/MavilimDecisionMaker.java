@@ -60,7 +60,7 @@ public class MavilimDecisionMaker implements CommercialDecisionMaker {
         this.closingTimeForCurrentBar = closeTradeData.getEventTime();
         LOGGER.info("Closing time for WARMED UP data is " + DateUtil.format(this.closingTimeForCurrentBar));
         LOGGER.info("Close price for WARMED UP data is: " + closeTradeData.getPrice());
-        this.maviValue = (double) indicator.apply(closeTradeData).getValue();
+        this.maviValue = (double) indicator.applyData(closeTradeData).getValue();
         LOGGER.info("Warmed up MAVI value: " + this.maviValue);
     }
 
@@ -82,7 +82,7 @@ public class MavilimDecisionMaker implements CommercialDecisionMaker {
     }
 
     private void setMaviValue(TradeData closeTradeData) {
-        this.maviValue = (double) indicator.apply(closeTradeData).getValue();
+        this.maviValue = (double) indicator.applyData(closeTradeData).getValue();
         LOGGER.info("MAVI VALUE IS UPDATED. VALUE: " + this.maviValue);
     }
 

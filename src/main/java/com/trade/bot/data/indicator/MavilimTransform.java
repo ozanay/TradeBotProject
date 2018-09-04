@@ -25,7 +25,7 @@ class MavilimTransform implements Indicator {
     }
 
     @Override
-    public IndicatorResult apply(TradeData tradeData) {
+    public IndicatorResult applyData(TradeData tradeData) {
         warmUp(tradeData);
 
         double maviValue = calculateMaviValue();
@@ -53,6 +53,12 @@ class MavilimTransform implements Indicator {
 
         double m5 = calculateM5();
         m5s.add(m5);
+    }
+
+    @Override
+    public IndicatorResult apply(List<TradeData> tradeDataList) {
+        // TODO This function will be implemented and above functions will be removed.
+        return null;
     }
 
     private void removeDeprecatedValues() {

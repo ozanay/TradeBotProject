@@ -20,7 +20,7 @@ public class BotRunner {
         Indicator indicator = IndicatorFactory.getIndicator(IndicatorEnum.MAVILIM, fmal, smal);
         TradeClient tradeClient = TradeClientFactory.create(Market.BINANCE);
         CommercialDecisionMaker commercialDecisionMaker = CommercialDecisionMakerFactory.create(IndicatorEnum.MAVILIM, indicator, tradeClient,
-                TradeSymbol.BTC_USDT, TradeClientCandleStickInterval.FIFTEEN_MINUTES);
+                        TradeSymbol.BTC_USDT, TradeClientCandleStickInterval.FIFTEEN_MINUTES);
         commercialDecisionMaker.warmUp();
 
         TradeWebSocketClient tradeWebSocketClient = TradeWebSocketClientFactory.create(Market.BINANCE, commercialDecisionMaker);

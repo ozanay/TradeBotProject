@@ -6,6 +6,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class TestMavilimTransform {
         }
         
         //When
-        IndicatorResult result = sut.apply(new TestTradeData(prices.get(size - 1), new Date()));
+        IndicatorResult result = sut.applyData(new TestTradeData(prices.get(size - 1), new Date()));
         double actual = (double) result.getValue();
         
         //Then
@@ -55,7 +56,7 @@ public class TestMavilimTransform {
     }
     
     private List<Double> getPrices() {
-        return java.util.Arrays
+        return Arrays
             .asList(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0, 20.0);
     }
     
@@ -81,30 +82,5 @@ public class TestMavilimTransform {
         }
 
         return Ms;
-    }
-    
-    private class TestTradeData implements TradeData {
-        private double price;
-        private Date date;
-    
-        TestTradeData(double price, Date date) {
-            this.price = price;
-            this.date = date;
-        }
-    
-        @Override
-        public double getPrice() {
-            return this.price;
-        }
-    
-        @Override
-        public Date getEventTime() {
-            return this.date;
-        }
-    
-        @Override
-        public int compareByDate(TradeData tradeData) {
-            return this.date.compareTo(tradeData.getEventTime());
-        }
     }
 }
