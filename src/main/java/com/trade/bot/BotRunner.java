@@ -1,5 +1,6 @@
 package com.trade.bot;
 
+import com.binance.api.client.domain.account.Trade;
 import com.trade.bot.data.client.*;
 import com.trade.bot.data.decisionmaker.CommercialDecisionMaker;
 import com.trade.bot.data.decisionmaker.CommercialDecisionMakerFactory;
@@ -9,6 +10,8 @@ import com.trade.bot.data.indicator.IndicatorFactory;
 import com.trade.bot.logging.LoggerProvider;
 
 import java.io.IOException;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class BotRunner {
     public static void main(String[] args) throws IOException {
@@ -19,12 +22,14 @@ public class BotRunner {
         LoggerProvider.configureLoggerProvider(logPath);
 
         Indicator indicator = IndicatorFactory.getIndicator(IndicatorEnum.HULL_MOVING_AVERAGE, period);
-        TradeClient tradeClient = TradeClientFactory.create(Market.BINANCE);
+        TradeClient tradeClient = TradeClientFactory.create();
         CommercialDecisionMaker commercialDecisionMaker = CommercialDecisionMakerFactory.create(IndicatorEnum.HULL_MOVING_AVERAGE, indicator, tradeClient,
                         TradeSymbol.BTC_USDT, TradeClientCandleStickInterval.FIFTEEN_MINUTES);
         commercialDecisionMaker.warmUp();
-
-        TradeWebSocketClient tradeWebSocketClient = TradeWebSocketClientFactory.create(Market.BINANCE, commercialDecisionMaker);
+    
+        BlockingQueue<TradeData> queue = new LinkedBlockingQueue<>();
+        TradeWebSocketClient tradeWebSocketClient = TradeWebSocketClientFactory.create(queue);
+        
         tradeWebSocketClient.subscribeEvent(TradeSymbol.BTC_USDT);
     }
 }

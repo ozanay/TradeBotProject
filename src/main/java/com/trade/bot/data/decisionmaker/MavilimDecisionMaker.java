@@ -102,4 +102,9 @@ public class MavilimDecisionMaker implements CommercialDecisionMaker {
         tradeClient.sell(tradeData);
         isLatestTradeInPreviousBars = false;
     }
+    
+    @Override
+    public void run() {
+    
+    }
 }

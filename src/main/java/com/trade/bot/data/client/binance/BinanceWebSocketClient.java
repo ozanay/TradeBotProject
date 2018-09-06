@@ -8,15 +8,17 @@ import com.trade.bot.TradeSymbol;
 import com.trade.bot.data.client.TradeWebSocketClient;
 import com.trade.bot.data.decisionmaker.CommercialDecisionMaker;
 
+import java.util.concurrent.BlockingQueue;
+
 /**
  * @author Ozan Ay
  */
 public class BinanceWebSocketClient implements TradeWebSocketClient {
     private static final BinanceApiWebSocketClient client = BinanceApiClientFactory.newInstance().newWebSocketClient();
-    private final CommercialDecisionMaker commercialDecisionMaker;
+    private final BlockingQueue<TradeData> tradeDataQueue;
 
-    BinanceWebSocketClient(CommercialDecisionMaker commercialDecisionMaker) {
-        this.commercialDecisionMaker = commercialDecisionMaker;
+    BinanceWebSocketClient(BlockingQueue<TradeData> tradeDataQueue) {
+        this.tradeDataQueue = tradeDataQueue;
     }
 
     @Override
@@ -26,6 +28,6 @@ public class BinanceWebSocketClient implements TradeWebSocketClient {
 
     private void addSubscribedData(AggTradeEvent response) {
         TradeData tradeData = new BinanceTradeDataAdapter(response);
-        commercialDecisionMaker.decide(tradeData);
+        tradeDataQueue.offer(tradeData);
     }
 }

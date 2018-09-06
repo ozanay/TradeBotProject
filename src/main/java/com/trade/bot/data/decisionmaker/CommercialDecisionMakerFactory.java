@@ -10,6 +10,8 @@ import com.trade.bot.data.indicator.IndicatorEnum;
  * @author Ozan Ay
  */
 public class CommercialDecisionMakerFactory {
+    private CommercialDecisionMakerFactory() {}
+    
     public static CommercialDecisionMaker create(IndicatorEnum indicatorEnum, Indicator indicator, TradeClient tradeClient, TradeSymbol tradeSymbol,
                                           TradeClientCandleStickInterval candleStickInterval) {
         CommercialDecisionMaker commercialDecisionMaker;
@@ -19,6 +21,7 @@ public class CommercialDecisionMakerFactory {
                 break;
             case HULL_MOVING_AVERAGE:
                 commercialDecisionMaker = new HullMovingAverageDecisionMaker(indicator, tradeClient, tradeSymbol, candleStickInterval);
+                break;
             default:
                 commercialDecisionMaker = new HullMovingAverageDecisionMaker(indicator, tradeClient, tradeSymbol, candleStickInterval);
         }

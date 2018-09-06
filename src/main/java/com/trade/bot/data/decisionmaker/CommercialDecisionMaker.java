@@ -5,7 +5,7 @@ import com.trade.bot.TradeData;
 /**
  * @author Ozan Ay
  */
-public interface CommercialDecisionMaker {
+public interface CommercialDecisionMaker extends Runnable{
     void decide(TradeData tradeData);
     void warmUp();
 }

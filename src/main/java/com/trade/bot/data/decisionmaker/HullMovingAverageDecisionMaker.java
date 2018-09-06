@@ -1,9 +1,13 @@
 package com.trade.bot.data.decisionmaker;
 
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.CountDownLatch;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import com.binance.api.client.domain.account.Trade;
 import com.trade.bot.CandleStickData;
 import com.trade.bot.CommercialDecision;
 import com.trade.bot.TradeData;
@@ -18,20 +22,34 @@ import com.trade.bot.logging.LoggerProvider;
  */
 public class HullMovingAverageDecisionMaker implements CommercialDecisionMaker {
     private static final Logger logger = LoggerProvider.getLogger(HullMovingAverageDecisionMaker.class.getName());
+    private final BlockingQueue<TradeData> tradeDataQueue;
+    private final CountDownLatch countDownLatch;
     private final Indicator indicator;
     private final TradeClient tradeClient;
     private final TradeSymbol tradeSymbol;
     private final TradeClientCandleStickInterval candleStickInterval;
     private CommercialDecision lastDecision = CommercialDecision.NONE;
 
-    HullMovingAverageDecisionMaker(Indicator indicator, TradeClient tradeClient, TradeSymbol tradeSymbol,
-                         TradeClientCandleStickInterval candleStickInterval) {
+    HullMovingAverageDecisionMaker(BlockingQueue<TradeData> tradeDataQueue, CountDownLatch countDownLatch, Indicator indicator, TradeClient tradeClient, TradeSymbol tradeSymbol,
+                                   TradeClientCandleStickInterval candleStickInterval) {
+        this.tradeDataQueue = tradeDataQueue;
+        this.countDownLatch = countDownLatch;
         this.indicator = indicator;
         this.tradeClient = tradeClient;
         this.tradeSymbol = tradeSymbol;
         this.candleStickInterval = candleStickInterval;
     }
-
+    
+    @Override
+    public void run() {
+        while (countDownLatch.getCount() != 0) {
+            TradeData lastData = tradeDataQueue.poll();
+            if (lastData != null) {
+                decide(lastData);
+            }
+        }
+    }
+    
     @Override
     public void decide(TradeData tradeData) {
         List<TradeData> closingTradeData = getTradeDataListTillPreviousBar();
@@ -44,12 +62,12 @@ public class HullMovingAverageDecisionMaker implements CommercialDecisionMaker {
 
         tradeIfLatestOrderChanged(tradeData, previousHullMovingAverage, hullMovingAverage);
     }
-
+    
     @Override
     public void warmUp() {
         // TODO will be removed.
     }
-
+    
     private void tradeIfLatestOrderChanged(TradeData tradeData, double previousHullMovingAverage, double hullMovingAverage) {
         if (hullMovingAverage > previousHullMovingAverage && !lastDecision.equals(CommercialDecision.BUY)) {
             buy(tradeData);
@@ -59,22 +77,22 @@ public class HullMovingAverageDecisionMaker implements CommercialDecisionMaker {
             logHMAs(previousHullMovingAverage, hullMovingAverage);
         }
     }
-
+    
     private void logHMAs(double previousHullMovingAverage, double hullMovingAverage) {
-        logger.info("HMA: " + hullMovingAverage);
-        logger.info("HMA[1]: " + previousHullMovingAverage);
+        logger.log(Level.INFO, "HMA: {0}", hullMovingAverage);
+        logger.log(Level.INFO, "HMA[1]: {0}", previousHullMovingAverage);
     }
-
+    
     private void sell(TradeData tradeData) {
         tradeClient.sell(tradeData);
         lastDecision = CommercialDecision.SELL;
     }
-
+    
     private void buy(TradeData tradeData) {
         tradeClient.buy(tradeData);
         lastDecision = CommercialDecision.BUY;
     }
-
+    
     private List<TradeData> getTradeDataListTillPreviousBar() {
         List<CandleStickData> candleStickData = tradeClient.getCandleStickData(tradeSymbol, candleStickInterval);
         int limitedSize = candleStickData.size() - 1;
