@@ -17,22 +17,21 @@ import com.trade.bot.util.DateUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 class BinanceClient implements TradeClient {
-    private static final Logger LOGGER = LoggerProvider.getLogger(BinanceClient.class.getName());
+    private static final Logger logger = LoggerProvider.getLogger(BinanceClient.class.getName());
     private static final String SECRET_KEY = "s8MlZOJKFO2XQhV9dT0lgdJjsKeNo3bPYOjrjwGPZOI5froszAJsoJOTwd4s7EX8";
     private static final String API_KEY = "pEYXmapVpBEILIJ3nnNfwJKYrNkecQVgJ17VuA5KmUTWkg6SEjqn7EyXohFIVL9A";
 
     private static final BinanceApiClientFactory factory = BinanceApiClientFactory.newInstance(API_KEY, SECRET_KEY);
     private static final BinanceApiRestClient restClient = factory.newRestClient();
     private static final BinanceApiWebSocketClient webSocketClient = factory.newWebSocketClient();
-    private final BlockingQueue<TradeData> tradeDataQueue;
+    private final BlockingQueue<TradeData> tradeDataQueue = new LinkedBlockingQueue<>();
     
-    BinanceClient(BlockingQueue<TradeData> tradeDataQueue) {
-        this.tradeDataQueue = tradeDataQueue;
-    }
+    BinanceClient() {}
     
     @Override
     public List<CandleStickData> getCandleStickData(TradeSymbol tradeSymbol, TradeClientCandleStickInterval tradeInterval) {
@@ -60,22 +59,30 @@ class BinanceClient implements TradeClient {
 
     @Override
     public void buy(TradeData tradeData) {
-        LOGGER.log(Level.INFO, () -> "BOUGHT price: " + tradeData.getPrice() + " at " + DateUtil.format(tradeData.getEventTime()));
+        logger.log(Level.INFO, () -> "BOUGHT price: " + tradeData.getPrice() + " at " + DateUtil.format(tradeData.getEventTime()));
     }
     
     @Override
     public void sell(TradeData tradeData) {
-        LOGGER.log(Level.INFO,
+        logger.log(Level.INFO,
             () -> "SOLD price: " + tradeData.getPrice() + " at " + DateUtil.format(tradeData.getEventTime()));
     }
     
     @Override
-    public void subscribeEvent(TradeSymbol tradeSymbol) {
+    public void subscribeTradeEvent(TradeSymbol tradeSymbol) {
         webSocketClient.onAggTradeEvent(tradeSymbol.getValue().toLowerCase(), this::addSubscribedData);
+    }
+    
+    @Override
+    public TradeData getLastTradeData() {
+        return tradeDataQueue.poll();
     }
     
     private void addSubscribedData(AggTradeEvent response) {
         TradeData tradeData = new BinanceTradeDataAdapter(response);
-        tradeDataQueue.offer(tradeData);
+        boolean isDataPutToQ = tradeDataQueue.offer(tradeData);
+        if (!isDataPutToQ) {
+            logger.log(Level.SEVERE, () -> "Trade data " + tradeData.toString() + " could not be out to Queue.");
+        }
     }
 }

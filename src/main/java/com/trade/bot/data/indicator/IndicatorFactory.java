@@ -1,5 +1,9 @@
 package com.trade.bot.data.indicator;
 
+import com.trade.bot.util.JsonUtil;
+
+import java.io.IOException;
+
 import static com.trade.bot.Constants.FIRST;
 import static com.trade.bot.Constants.SECOND;
 
@@ -7,31 +11,32 @@ import static com.trade.bot.Constants.SECOND;
  * @author Ozan Ay
  */
 public class IndicatorFactory {
-    public static Indicator getIndicator(IndicatorEnum indicatorEnum, Object...args) {
+    private IndicatorFactory(){}
+    
+    public static Indicator getIndicator(IndicatorEnum indicatorEnum, String parameters) throws IOException {
         Indicator indicator;
         switch (indicatorEnum) {
             case MAVILIM:
-                indicator = getMavilimTransform(args);
+                indicator = getMavilimTransform(parameters);
                 break;
             case HULL_MOVING_AVERAGE:
-                indicator = getHullMovingAverage(args);
+                indicator = getHullMovingAverage(parameters);
                 break;
             default:
-                indicator = getHullMovingAverage(args);
+                indicator = getHullMovingAverage(parameters);
         }
 
         return indicator;
     }
 
-    private static Indicator getHullMovingAverage(Object... args) {
-        int period = (int) args[FIRST];
-        return new HullMovingAverage(period);
+    private static Indicator getHullMovingAverage(String parametersJson) throws IOException {
+        HullMovingAverageParameters parameters = JsonUtil.parse(parametersJson, HullMovingAverageParameters.class);
+        return new HullMovingAverage(parameters.getPeriod());
     }
 
-    private static Indicator getMavilimTransform(Object... args) {
-        int fmal = (int) args[FIRST];
-        int smal = (int) args[SECOND];
-        Mavilim mavilim = new Mavilim(fmal, smal);
+    private static Indicator getMavilimTransform(String parametersJson) throws IOException {
+        MavilimParameters parameters = JsonUtil.parse(parametersJson, MavilimParameters.class);
+        Mavilim mavilim = new Mavilim(parameters.getFmal(), parameters.getSmal());
         return new MavilimTransform(mavilim);
     }
 }

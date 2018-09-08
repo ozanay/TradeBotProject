@@ -1,14 +1,5 @@
 package com.trade.bot.data.decisionmaker;
 
-import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
-
-import com.binance.api.client.domain.account.Trade;
 import com.trade.bot.CandleStickData;
 import com.trade.bot.CommercialDecision;
 import com.trade.bot.TradeData;
@@ -18,32 +9,37 @@ import com.trade.bot.data.client.TradeClientCandleStickInterval;
 import com.trade.bot.data.indicator.Indicator;
 import com.trade.bot.logging.LoggerProvider;
 
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+
 /**
  * @author Ozan Ay
  */
-public class HullMovingAverageDecisionMaker implements CommercialDecisionMaker {
+public class HullMovingAverageDecisionMaker extends CommercialDecisionMakerBase {
     private static final Logger logger = LoggerProvider.getLogger(HullMovingAverageDecisionMaker.class.getName());
-    private final BlockingQueue<TradeData> tradeDataQueue;
     private final Indicator indicator;
     private final TradeClient tradeClient;
     private final TradeSymbol tradeSymbol;
     private final TradeClientCandleStickInterval candleStickInterval;
     private CommercialDecision lastDecision = CommercialDecision.NONE;
-    private AtomicBoolean isRunning = new AtomicBoolean(false);
+    private AtomicBoolean isRunning;
 
-    HullMovingAverageDecisionMaker(BlockingQueue<TradeData> tradeDataQueue, Indicator indicator, TradeClient tradeClient, TradeSymbol tradeSymbol,
+    HullMovingAverageDecisionMaker(Indicator indicator, TradeClient tradeClient, TradeSymbol tradeSymbol,
                                    TradeClientCandleStickInterval candleStickInterval) {
-        this.tradeDataQueue = tradeDataQueue;
         this.indicator = indicator;
         this.tradeClient = tradeClient;
         this.tradeSymbol = tradeSymbol;
         this.candleStickInterval = candleStickInterval;
+        this.isRunning = new AtomicBoolean();
     }
     
     @Override
     public void run() {
         while (isRunning.get()) {
-            TradeData lastData = tradeDataQueue.poll();
+            TradeData lastData = tradeClient.getLastTradeData();
             if (lastData != null) {
                 decide(lastData);
             }
@@ -51,7 +47,7 @@ public class HullMovingAverageDecisionMaker implements CommercialDecisionMaker {
     }
     
     @Override
-    public void decide(TradeData tradeData) {
+    void decide(TradeData tradeData) {
         List<TradeData> closingTradeData = getTradeDataListTillPreviousBar();
         double previousHullMovingAverage = (double) indicator.apply(closingTradeData).getValue();
 
@@ -64,8 +60,19 @@ public class HullMovingAverageDecisionMaker implements CommercialDecisionMaker {
     }
     
     @Override
-    public void warmUp() {
-        // TODO will be removed.
+    public void start() {
+        if (!isRunning.get()) {
+            isRunning.set(true);
+        }
+        
+        tradeClient.subscribeTradeEvent(tradeSymbol);
+    }
+    
+    @Override
+    public void stop() {
+        if (isRunning.get()) {
+            isRunning.set(false);
+        }
     }
     
     private void tradeIfLatestOrderChanged(TradeData tradeData, double previousHullMovingAverage, double hullMovingAverage) {

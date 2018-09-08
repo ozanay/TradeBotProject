@@ -27,11 +27,6 @@ public class BinanceTradeDataAdapter implements TradeData {
         this.eventTime = new Date(tradeEvent.getEventTime());
     }
 
-    BinanceTradeDataAdapter(TickerPrice tickerPrice) {
-        this.price = Double.parseDouble(tickerPrice.getPrice());
-        this.eventTime = new Date();
-    }
-
     @Override
     public double getPrice() {
         return price;
@@ -45,5 +40,13 @@ public class BinanceTradeDataAdapter implements TradeData {
     @Override
     public int compareByDate(TradeData tradeData) {
         return this.eventTime.compareTo(tradeData.getEventTime());
+    }
+    
+    @Override
+    public String toString() {
+        return "BinanceTradeDataAdapter{" +
+            "price=" + price +
+            ", eventTime=" + DateUtil.format(eventTime) +
+            '}';
     }
 }

@@ -18,5 +18,7 @@ public interface TradeClient {
 
     void sell(TradeData tradeData);
     
-    void subscribeEvent(TradeSymbol tradeSymbol);
+    void subscribeTradeEvent(TradeSymbol tradeSymbol);
+    
+    TradeData getLastTradeData();
 }

@@ -1,6 +1,5 @@
 package com.trade.bot.data.decisionmaker;
 
-import com.trade.bot.CandleStickData;
 import com.trade.bot.CommercialDecision;
 import com.trade.bot.TradeData;
 import com.trade.bot.TradeSymbol;
@@ -11,13 +10,12 @@ import com.trade.bot.logging.LoggerProvider;
 import com.trade.bot.util.DateUtil;
 
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Logger;
 
 /**
  * @author Ozan Ay
  */
-public class MavilimDecisionMaker implements CommercialDecisionMaker {
+public class MavilimDecisionMaker extends CommercialDecisionMakerBase {
     private static final Logger LOGGER = LoggerProvider.getLogger(MavilimDecisionMaker.class.getName());
     private final Indicator indicator;
     private final TradeClient tradeClient;
@@ -35,9 +33,14 @@ public class MavilimDecisionMaker implements CommercialDecisionMaker {
         this.tradeSymbol = tradeSymbol;
         this.candleStickInterval = candleStickInterval;
     }
-
+    
     @Override
-    public void decide(TradeData tradeData) {
+    public void run() {
+    
+    }
+    
+    @Override
+    void decide(TradeData tradeData) {
         Date now = new Date();
         boolean isInCurrentBar = now.compareTo(this.closingTimeForCurrentBar) < 0;
         if (isInCurrentBar) {
@@ -46,31 +49,24 @@ public class MavilimDecisionMaker implements CommercialDecisionMaker {
             updateMaviValueAndCloseTime();
         }
     }
-
+    
     @Override
-    public void warmUp() {
-        List<CandleStickData> candleStickData = tradeClient.getCandleStickData(tradeSymbol, candleStickInterval);
-        int currentBarIndex = candleStickData.size() - 1;
-        for (int index = 0; index < currentBarIndex - 2; index++) {
-            CandleStickData candleStick = candleStickData.get(index);
-            indicator.warmUp(candleStick.getCloseTradeData());
-        }
-
-        TradeData closeTradeData = candleStickData.get(currentBarIndex - 1).getCloseTradeData();
-        this.closingTimeForCurrentBar = closeTradeData.getEventTime();
-        LOGGER.info("Closing time for WARMED UP data is " + DateUtil.format(this.closingTimeForCurrentBar));
-        LOGGER.info("Close price for WARMED UP data is: " + closeTradeData.getPrice());
-        this.maviValue = (double) indicator.applyData(closeTradeData).getValue();
-        LOGGER.info("Warmed up MAVI value: " + this.maviValue);
+    public void start() {
+    
     }
-
+    
+    @Override
+    public void stop() {
+    
+    }
+    
     private void updateMaviValueAndCloseTime() {
         TradeData currentCloseTradeData = tradeClient.getCurrentCloseTradeData(tradeSymbol, candleStickInterval);
         setCloseTime(currentCloseTradeData.getEventTime());
         setMaviValue(currentCloseTradeData);
         isLatestTradeInPreviousBars = true;
     }
-
+    
     private void tradeIfLatestOrderChanged(TradeData tradeData) {
         if (isLatestTradeInPreviousBars) {
             if (tradeData.getPrice() < this.maviValue && !this.latestDecision.equals(CommercialDecision.SELL)) {
@@ -80,31 +76,26 @@ public class MavilimDecisionMaker implements CommercialDecisionMaker {
             }
         }
     }
-
+    
     private void setMaviValue(TradeData closeTradeData) {
         this.maviValue = (double) indicator.applyData(closeTradeData).getValue();
         LOGGER.info("MAVI VALUE IS UPDATED. VALUE: " + this.maviValue);
     }
-
+    
     private void setCloseTime(Date closeTime) {
         this.closingTimeForCurrentBar = closeTime;
         LOGGER.info("CURRENT BAR IS CHANGED AND CLOSE TIME: " + DateUtil.format(closeTime));
     }
-
+    
     private void buy(TradeData tradeData) {
         this.latestDecision = CommercialDecision.BUY;
         tradeClient.buy(tradeData);
         isLatestTradeInPreviousBars = false;
     }
-
+    
     private void sell(TradeData tradeData) {
         this.latestDecision = CommercialDecision.SELL;
         tradeClient.sell(tradeData);
         isLatestTradeInPreviousBars = false;
-    }
-    
-    @Override
-    public void run() {
-    
     }
 }
