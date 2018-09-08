@@ -3,6 +3,7 @@ package com.trade.bot.data.decisionmaker;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -23,17 +24,16 @@ import com.trade.bot.logging.LoggerProvider;
 public class HullMovingAverageDecisionMaker implements CommercialDecisionMaker {
     private static final Logger logger = LoggerProvider.getLogger(HullMovingAverageDecisionMaker.class.getName());
     private final BlockingQueue<TradeData> tradeDataQueue;
-    private final CountDownLatch countDownLatch;
     private final Indicator indicator;
     private final TradeClient tradeClient;
     private final TradeSymbol tradeSymbol;
     private final TradeClientCandleStickInterval candleStickInterval;
     private CommercialDecision lastDecision = CommercialDecision.NONE;
+    private AtomicBoolean isRunning = new AtomicBoolean(false);
 
-    HullMovingAverageDecisionMaker(BlockingQueue<TradeData> tradeDataQueue, CountDownLatch countDownLatch, Indicator indicator, TradeClient tradeClient, TradeSymbol tradeSymbol,
+    HullMovingAverageDecisionMaker(BlockingQueue<TradeData> tradeDataQueue, Indicator indicator, TradeClient tradeClient, TradeSymbol tradeSymbol,
                                    TradeClientCandleStickInterval candleStickInterval) {
         this.tradeDataQueue = tradeDataQueue;
-        this.countDownLatch = countDownLatch;
         this.indicator = indicator;
         this.tradeClient = tradeClient;
         this.tradeSymbol = tradeSymbol;
@@ -42,7 +42,7 @@ public class HullMovingAverageDecisionMaker implements CommercialDecisionMaker {
     
     @Override
     public void run() {
-        while (countDownLatch.getCount() != 0) {
+        while (isRunning.get()) {
             TradeData lastData = tradeDataQueue.poll();
             if (lastData != null) {
                 decide(lastData);
