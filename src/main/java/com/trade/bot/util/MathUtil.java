@@ -1,4 +1,4 @@
-package com.trade.bot.math;
+package com.trade.bot.util;
 
 import java.util.List;
 

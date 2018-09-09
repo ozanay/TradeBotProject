@@ -1,5 +1,6 @@
 package com.trade.bot;
 
+import com.trade.bot.command.CommandExecutor;
 import com.trade.bot.data.client.TradeClient;
 import com.trade.bot.data.client.TradeClientCandleStickInterval;
 import com.trade.bot.data.client.TradeClientFactory;
@@ -11,9 +12,13 @@ import com.trade.bot.logging.LoggerProvider;
 import java.io.IOException;
 
 public class BotRunner {
+    private static final String APPLICATION_NAME = "Trader";
     public static void main(String[] args) throws IOException {
         // int fmal = 3;
         // int smal = 5;
+        CommandExecutor commandExecutor = new CommandExecutor(APPLICATION_NAME);
+        commandExecutor.execute(args);
+        
         String logPath = "C:\\Users\\z003u8xt\\Desktop\\logs\\trade_bot.log";
         LoggerProvider.configureLoggerProvider(logPath);
         String indicatorParameters = "{\n" +

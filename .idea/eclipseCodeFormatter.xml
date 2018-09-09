@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="EclipseCodeFormatterProjectSettings">
+    <option name="projectSpecificProfile">
+      <ProjectSpecificProfile>
+        <option name="formatter" value="ECLIPSE" />
+        <option name="pathToConfigFileJava" value="E:/Formatter/MindSphereCodeFormatter.xml" />
+        <option name="selectedJavaProfile" value="MindSphereUpdated" />
+      </ProjectSpecificProfile>
+    </option>
+    <option name="selectedGlobalProfile">
+      <Settings>
+        <option name="formatter" value="ECLIPSE" />
+        <option name="id" value="1484802539407" />
+        <option name="name" value="default" />
+        <option name="pathToConfigFileJava" value="E:/MindConnectSW-3/MindConnectSW-3/Software_Packages/_common/formatter/MindSphereCodeFormatter.xml" />
+        <option name="selectedJavaProfile" value="MindSphereUpdated" />
+      </Settings>
+    </option>
+  </component>
+</project>

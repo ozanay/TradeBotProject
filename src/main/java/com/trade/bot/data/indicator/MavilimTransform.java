@@ -1,7 +1,7 @@
 package com.trade.bot.data.indicator;
 
 import com.trade.bot.TradeData;
-import com.trade.bot.math.MathUtil;
+import com.trade.bot.util.MathUtil;
 
 import java.util.ArrayList;
 import java.util.List;

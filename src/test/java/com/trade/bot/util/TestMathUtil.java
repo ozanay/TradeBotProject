@@ -1,5 +1,6 @@
-package com.trade.bot.math;
+package com.trade.bot.util;
 
+import com.trade.bot.util.MathUtil;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 

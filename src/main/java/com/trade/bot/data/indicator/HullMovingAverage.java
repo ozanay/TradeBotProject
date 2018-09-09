@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.trade.bot.TradeData;
-import com.trade.bot.math.MathUtil;
+import com.trade.bot.util.MathUtil;
 import com.trade.bot.util.ListUtil;
 
 /**

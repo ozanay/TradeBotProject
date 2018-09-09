@@ -1,7 +1,6 @@
 package com.trade.bot.data.indicator;
 
-import com.trade.bot.TradeData;
-import com.trade.bot.math.MathUtil;
+import com.trade.bot.util.MathUtil;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
