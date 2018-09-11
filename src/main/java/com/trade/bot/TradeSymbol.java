@@ -1,10 +1,12 @@
 package com.trade.bot;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.trade.bot.util.EnumUtils;
 
 import java.util.function.Function;
 
 public enum TradeSymbol {
+    @JsonProperty ("btcusdt")
     BTC_USDT("btcusdt"),
     N_A("NOT APPLICABLE");
 

@@ -1,43 +1,51 @@
 package com.trade.bot.command;
 
-import java.util.List;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.beust.jcommander.JCommander;
+import com.trade.bot.configuration.IndicatorFeature;
+import com.trade.bot.configuration.StartConfiguration;
+import com.trade.bot.data.client.TradeClient;
+import com.trade.bot.data.client.TradeClientFactory;
+import com.trade.bot.data.decisionmaker.CommercialDecisionMakerRunner;
+import com.trade.bot.data.decisionmaker.CommercialDecisionMakerRunnerFactory;
+import com.trade.bot.logging.LoggerProvider;
+import com.trade.bot.util.FileUtil;
+import com.trade.bot.util.JsonUtil;
 
 /**
  * @author Ozan Ay
  */
 public class CommandExecutor {
     private static final Logger logger = Logger.getLogger(CommandExecutor.class.getName());
-    private static final JCommander commander = new JCommander();
-    public CommandExecutor(String applicationName) {
-        commander.setProgramName(applicationName);
+    private static CommercialDecisionMakerRunner runner;
+    
+    void start(String configurationFilePath) throws IOException {
+        String configurationContent = FileUtil.read(configurationFilePath);
+        logger.log(Level.FINE, () -> "Configuration content is " + configurationContent);
+
+        StartConfiguration startConfiguration = JsonUtil.parse(configurationContent, StartConfiguration.class);
+        LoggerProvider.configureLoggerProvider(startConfiguration.getLogging().getPath());
+    
+        createRunner(startConfiguration);
+        runner.start();
     }
     
-    public void execute(String[] args) {
-        if (args.length == 0) {
-            commander.usage();
+    void stop() {
+        if (runner != null) {
+            runner.stop();
+            System.exit(0);
         } else {
-            List<ControllerCommand> commands = CommandRepository.getCommands();
-        
-            for (ControllerCommand command : commands) {
-                commander.addCommand(command);
-            }
-        
-            ControllerCommand commandObject = null;
-            try {
-                commander.parse(args);
-                JCommander parsedCommander = commander.getCommands().get(commander.getParsedCommand());
-                commandObject = (ControllerCommand) parsedCommander.getObjects().get(0);
-            } catch (RuntimeException exception) {
-                logger.log(Level.SEVERE,"Command not recognized.", exception);
-                commander.usage();
-            }
-            if (commandObject != null) {
-                    commandObject.execute(args);
-            }
+            logger.log(Level.SEVERE, () -> "RUNNER is empty.");
         }
+    }
+    
+    private static void createRunner(StartConfiguration startConfiguration) throws IOException {
+        TradeClient tradeClient = TradeClientFactory.create();
+        IndicatorFeature indicatorFeature = startConfiguration.getIndicatorFeature();
+        runner = CommercialDecisionMakerRunnerFactory
+            .create(indicatorFeature.getIndicatorEnum(), indicatorFeature.getParameters().toString(), tradeClient,
+                startConfiguration.getTradeSymbol(), startConfiguration.getCandleStickInterval());
     }
 }
