@@ -1,11 +1,10 @@
 package com.trade.bot.data.indicator;
 
+import com.trade.bot.configuration.HullMovingAverageParameters;
+import com.trade.bot.configuration.MavilimParameters;
 import com.trade.bot.util.JsonUtil;
 
 import java.io.IOException;
-
-import static com.trade.bot.Constants.FIRST;
-import static com.trade.bot.Constants.SECOND;
 
 /**
  * @author Ozan Ay

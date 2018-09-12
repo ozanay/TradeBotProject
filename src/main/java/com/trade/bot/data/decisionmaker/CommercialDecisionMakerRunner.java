@@ -22,7 +22,7 @@ public class CommercialDecisionMakerRunner {
     public void stop() {
         commercialDecisionMaker.stop();
         if (!executorService.isShutdown()) {
-            executorService.shutdown();
+            executorService.shutdownNow();
         }
     }
 }

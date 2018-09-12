@@ -1,34 +1,44 @@
 package com.trade.bot;
 
-import com.trade.bot.command.CommandExecutor;
-import com.trade.bot.data.client.TradeClient;
-import com.trade.bot.data.client.TradeClientCandleStickInterval;
-import com.trade.bot.data.client.TradeClientFactory;
-import com.trade.bot.data.decisionmaker.CommercialDecisionMakerRunner;
-import com.trade.bot.data.decisionmaker.CommercialDecisionMakerRunnerFactory;
-import com.trade.bot.data.indicator.IndicatorEnum;
-import com.trade.bot.logging.LoggerProvider;
-
 import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import com.beust.jcommander.JCommander;
+import com.trade.bot.command.Command;
+import com.trade.bot.command.CommandExecutor;
+import com.trade.bot.command.CommandRepository;
 
 public class BotRunner {
+    private static final Logger logger = Logger.getLogger(BotRunner.class.getName());
     private static final String APPLICATION_NAME = "Trader";
-    public static void main(String[] args) throws IOException {
-        // int fmal = 3;
-        // int smal = 5;
-        CommandExecutor commandExecutor = new CommandExecutor(APPLICATION_NAME);
-        commandExecutor.execute(args);
-        
-        String logPath = "C:\\Users\\z003u8xt\\Desktop\\logs\\trade_bot.log";
-        LoggerProvider.configureLoggerProvider(logPath);
-        String indicatorParameters = "{\n" +
-            "\t\"period\": 16\n" +
-            "}";
     
-        TradeClient tradeClient = TradeClientFactory.create();
-        CommercialDecisionMakerRunner runner = CommercialDecisionMakerRunnerFactory
-            .create(IndicatorEnum.HULL_MOVING_AVERAGE, indicatorParameters, tradeClient,
-                TradeSymbol.BTC_USDT, TradeClientCandleStickInterval.FIFTEEN_MINUTES);
-        runner.start();
+    public static void main(String[] args) throws IOException {
+        JCommander commander = new JCommander();
+        commander.setProgramName(APPLICATION_NAME);
+        if (args.length == 0) {
+            commander.usage();
+        } else {
+            List<Command> commands = CommandRepository.getCommands();
+        
+            for (Command command : commands) {
+                commander.addCommand(command);
+            }
+        
+            Command commandObject = null;
+            try {
+                commander.parse(args);
+                JCommander parsedCommander = commander.getCommands().get(commander.getParsedCommand());
+                commandObject = (Command) parsedCommander.getObjects().get(0);
+            } catch (RuntimeException exception) {
+                logger.log(Level.SEVERE, "Command not recognized.", exception);
+                commander.usage();
+            }
+            if (commandObject != null) {
+                CommandExecutor commandExecutor = new CommandExecutor();
+                commandObject.execute(commandExecutor);
+            }
+        }
     }
 }
