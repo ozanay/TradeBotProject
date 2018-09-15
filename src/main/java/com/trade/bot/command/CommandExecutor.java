@@ -5,7 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.trade.bot.configuration.IndicatorFeature;
-import com.trade.bot.configuration.StartConfiguration;
+import com.trade.bot.configuration.InitialConfiguration;
 import com.trade.bot.data.client.TradeClient;
 import com.trade.bot.data.client.TradeClientFactory;
 import com.trade.bot.data.decisionmaker.CommercialDecisionMakerRunner;
@@ -25,11 +25,12 @@ public class CommandExecutor {
         String configurationContent = FileUtil.read(configurationFilePath);
         logger.log(Level.FINE, () -> "Configuration content is " + configurationContent);
 
-        StartConfiguration startConfiguration = JsonUtil.parse(configurationContent, StartConfiguration.class);
-        LoggerProvider.configureLoggerProvider(startConfiguration.getLogging().getPath());
+        InitialConfiguration initialConfiguration = JsonUtil.parse(configurationContent, InitialConfiguration.class);
+        LoggerProvider.configureLoggerProvider(initialConfiguration.getLogging().getPath());
     
-        createRunner(startConfiguration);
+        createRunner(initialConfiguration);
         runner.start();
+        logger.info("Trader is running.");
     }
     
     void stop() {
@@ -41,11 +42,11 @@ public class CommandExecutor {
         }
     }
     
-    private static void createRunner(StartConfiguration startConfiguration) throws IOException {
+    private static void createRunner(InitialConfiguration initialConfiguration) throws IOException {
         TradeClient tradeClient = TradeClientFactory.create();
-        IndicatorFeature indicatorFeature = startConfiguration.getIndicatorFeature();
+        IndicatorFeature indicatorFeature = initialConfiguration.getIndicatorFeature();
         runner = CommercialDecisionMakerRunnerFactory
             .create(indicatorFeature.getIndicatorEnum(), indicatorFeature.getParameters().toString(), tradeClient,
-                startConfiguration.getTradeSymbol(), startConfiguration.getCandleStickInterval());
+                initialConfiguration.getTradeSymbol(), initialConfiguration.getCandleStickInterval());
     }
 }

@@ -13,7 +13,7 @@
         <option name="formatter" value="ECLIPSE" />
         <option name="id" value="1484802539407" />
         <option name="name" value="default" />
-        <option name="pathToConfigFileJava" value="E:/MindConnectSW-3/MindConnectSW-3/Software_Packages/_common/formatter/MindSphereCodeFormatter.xml" />
+        <option name="pathToConfigFileJava" value="$PROJECT_DIR$/../../Intellij/formatter/IdeaFormatter.xml" />
         <option name="selectedJavaProfile" value="MindSphereUpdated" />
       </Settings>
     </option>

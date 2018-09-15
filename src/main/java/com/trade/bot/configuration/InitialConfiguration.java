@@ -7,7 +7,7 @@ import com.trade.bot.data.client.TradeClientCandleStickInterval;
 /**
  * @author Ozan Ay
  */
-public class StartConfiguration {
+public class InitialConfiguration {
     @JsonProperty ("logging")
     private Logging logging;
     
