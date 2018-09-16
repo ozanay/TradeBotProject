@@ -27,17 +27,6 @@ class HullMovingAverage implements Indicator {
     }
 
     @Override
-    public IndicatorResult applyData(TradeData tradeData) {
-        // TODO this function will be remove soon.
-        return null;
-    }
-
-    @Override
-    public void warmUp(TradeData tradeData) {
-        // TODO this function will be remove soon.
-    }
-
-    @Override
     public IndicatorResult apply(List<TradeData> tradeDataList) {
         double hullMovingAverage = 0.0;
         if (ListUtil.hasAnyValue(tradeDataList)) {

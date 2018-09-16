@@ -8,9 +8,5 @@ import java.util.List;
  * @author Ozan Ay
  */
 public interface Indicator {
-    IndicatorResult applyData(TradeData tradeData);
-
-    void warmUp(TradeData tradeData);
-
     IndicatorResult apply(List<TradeData> tradeDataList);
 }

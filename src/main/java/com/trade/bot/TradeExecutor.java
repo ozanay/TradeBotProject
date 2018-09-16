@@ -1,4 +1,4 @@
-package com.trade.bot.command;
+package com.trade.bot;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -17,8 +17,8 @@ import com.trade.bot.util.JsonUtil;
 /**
  * @author Ozan Ay
  */
-public class CommandExecutor {
-    private static final Logger logger = Logger.getLogger(CommandExecutor.class.getName());
+class TradeExecutor {
+    private static final Logger logger = Logger.getLogger(TradeExecutor.class.getName());
     private static CommercialDecisionMakerRunner runner;
     
     void start(String configurationFilePath) throws IOException {
@@ -47,7 +47,7 @@ public class CommandExecutor {
         TradeClient tradeClient = TradeClientFactory.create();
         IndicatorFeature indicatorFeature = initialConfiguration.getIndicatorFeature();
         runner = CommercialDecisionMakerRunnerFactory
-            .create(indicatorFeature.getIndicatorEnum(), indicatorFeature.getParameters().toString(), tradeClient,
+            .create(indicatorFeature.getParameters().toString(), tradeClient,
                 initialConfiguration.getTradeSymbol(), initialConfiguration.getCandleStickInterval());
     }
 }
