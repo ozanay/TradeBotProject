@@ -21,7 +21,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.trade.bot.BotRunner</mainClass>
+                            <mainClass>com.trade.bot.Trader</mainClass>
 
                             <addClasspath>true</addClasspath>
                         </manifest>
