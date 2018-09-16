@@ -36,10 +36,11 @@ public class CommandExecutor {
     void stop() {
         if (runner != null) {
             runner.stop();
-            System.exit(0);
         } else {
             logger.log(Level.SEVERE, () -> "RUNNER is empty.");
         }
+
+        System.exit(0);
     }
     
     private static void createRunner(InitialConfiguration initialConfiguration) throws IOException {
