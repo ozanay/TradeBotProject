@@ -3,6 +3,6 @@ package com.trade.bot;
 /**
  * @author Ozan Ay
  */
-public enum CommercialDecision {
+public enum CommercialFlag {
     BUY, SELL, NONE;
 }
