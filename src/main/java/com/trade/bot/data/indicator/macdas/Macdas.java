@@ -1,25 +1,29 @@
-package com.trade.bot.data.indicator;
+package com.trade.bot.data.indicator.macdas;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.trade.bot.CommercialFlag;
 import com.trade.bot.TradeData;
+import com.trade.bot.data.indicator.Indicator;
 import com.trade.bot.util.JsonUtil;
 import com.trade.bot.util.math.ExponentialMovingAverage;
 
 /**
  * @author Ozan Ay
  */
-public class Macdas implements Indicator{
+public class Macdas implements Indicator {
     private final ExponentialMovingAverage emaForFastMA;
     private final ExponentialMovingAverage emaForSlowMA;
     private final ExponentialMovingAverage emaForSignal;
     private final ExponentialMovingAverage emaForSignalAS;
+    private final MacdasParameters macdasParameters;
+    private boolean isInitialRun = true;
 
     Macdas(String parameters) throws IOException {
-        MacdasParameters macdasParameters = JsonUtil.parse(parameters, MacdasParameters.class);
+        this.macdasParameters = JsonUtil.parse(parameters, MacdasParameters.class);
         this.emaForFastMA = new ExponentialMovingAverage(macdasParameters.getFastPeriod());
         this.emaForSlowMA = new ExponentialMovingAverage(macdasParameters.getSlowPeriod());
         this.emaForSignal = new ExponentialMovingAverage(macdasParameters.getSignalPeriod());
@@ -29,9 +33,9 @@ public class Macdas implements Indicator{
     @Override
     public CommercialFlag apply(List<TradeData> tradeDataList) {
         List<Double> prices = tradeDataList.stream().map(TradeData::getPrice).collect(Collectors.toList());
-        double fastMA = emaForFastMA.calculateMostRecently(prices, macdasParameters.getFastPeriod());
-        double slowMA = emaForFastMA.calculateMostRecently(prices, macdasParameters.getSlowPeriod());
-        double macd = fastMA - slowMA;
+        if (isInitialRun) {
+            
+        }
         return null;
     }
 }

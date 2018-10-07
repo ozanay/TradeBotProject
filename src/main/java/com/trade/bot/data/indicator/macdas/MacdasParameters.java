@@ -1,4 +1,4 @@
-package com.trade.bot.data.indicator;
+package com.trade.bot.data.indicator.macdas;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
