@@ -1,8 +1,8 @@
 package com.trade.bot.data.decisionmaker;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -11,7 +11,7 @@ import com.trade.bot.util.DateUtil;
 import org.jetbrains.annotations.NotNull;
 
 import com.trade.bot.CandleStickData;
-import com.trade.bot.CommercialDecision;
+import com.trade.bot.CommercialFlag;
 import com.trade.bot.TradeData;
 import com.trade.bot.TradeSymbol;
 import com.trade.bot.data.client.TradeClient;
@@ -22,8 +22,9 @@ import com.trade.bot.logging.LoggerProvider;
 /**
  * @author Ozan Ay
  */
-public class HullMovingAverageDecisionMaker extends CommercialDecisionMakerBase {
-    private static final Logger logger = LoggerProvider.getLogger(HullMovingAverageDecisionMaker.class.getName());
+public class IndicatorCommercialDecisionApplier implements CommercialDecisionApplier {
+    private static final Logger logger = LoggerProvider.getLogger(IndicatorCommercialDecisionApplier.class.getName());
+    private static final Map<CommercialFlag, Consumer<TradeData>> actionMap = new EnumMap<>(CommercialFlag.class);
     private static final String NO_TRADE_LOG_MESSAGE = "NO TRADE!";
     private static final String BAR_CHANGED_LOG_MESSAGE = "Current candle stick bar is changed.";
     private static final String STARS_FOR_LOG = "***************************************************************************";
@@ -31,16 +32,19 @@ public class HullMovingAverageDecisionMaker extends CommercialDecisionMakerBase 
     private final TradeClient tradeClient;
     private final TradeSymbol tradeSymbol;
     private final TradeClientCandleStickInterval candleStickInterval;
-    private CommercialDecision lastDecision = CommercialDecision.NONE;
+    private CommercialFlag lastDecision = CommercialFlag.NONE;
     private AtomicBoolean isRunning = new AtomicBoolean();
     private Date closeTimeOfCurrentCandleStick;
 
-    HullMovingAverageDecisionMaker(Indicator indicator, TradeClient tradeClient, TradeSymbol tradeSymbol,
-                                   TradeClientCandleStickInterval candleStickInterval) {
+    IndicatorCommercialDecisionApplier(Indicator indicator, TradeClient tradeClient, TradeSymbol tradeSymbol,
+                                       TradeClientCandleStickInterval candleStickInterval) {
         this.indicator = indicator;
         this.tradeClient = tradeClient;
         this.tradeSymbol = tradeSymbol;
         this.candleStickInterval = candleStickInterval;
+        actionMap.put(CommercialFlag.NONE, this::noTrade);
+        actionMap.put(CommercialFlag.BUY, this::buy);
+        actionMap.put(CommercialFlag.SELL, this::sell);
     }
     
     @Override
@@ -69,27 +73,17 @@ public class HullMovingAverageDecisionMaker extends CommercialDecisionMakerBase 
         }
     }
 
-    @Override
-    void decide(TradeData tradeData) {
+    private void decide(TradeData tradeData) {
         if (isCurrentCandleStickChanged(tradeData)) {
             logger.info(BAR_CHANGED_LOG_MESSAGE);
             List<CandleStickData> allCandleStickDataList = getAllCandleStickDataList();
 
-            List<TradeData> closingTradeDataListTillTwoPreviousBar = mapClosingTradeDataListTillTwoPreviousBar(allCandleStickDataList);
-            int previousHullMovingAverage = applyIndicator(closingTradeDataListTillTwoPreviousBar);
-
             List<TradeData> closingTradeDataListTillPreviousBar = mapClosingTradeDataListTillPreviousBar(allCandleStickDataList);
-            int hullMovingAverage = applyIndicator(closingTradeDataListTillPreviousBar);
-
-            tradeIfLatestOrderChanged(tradeData, previousHullMovingAverage, hullMovingAverage);
+            CommercialFlag flag = indicator.apply(closingTradeDataListTillPreviousBar);
+            tradeIfLatestOrderChanged(tradeData, flag);
 
             updateCloseTimeOfCurrentCandleStick(allCandleStickDataList);
         }
-    }
-
-    private static void logHMAs(int previousHullMovingAverage, int hullMovingAverage) {
-        logger.log(Level.INFO, "HMA[1]: {0}", hullMovingAverage);
-        logger.log(Level.INFO, "HMA[2]: {0}", previousHullMovingAverage);
     }
 
     private static void logPrice(TradeData tradeData) {
@@ -100,46 +94,37 @@ public class HullMovingAverageDecisionMaker extends CommercialDecisionMakerBase 
         logger.info(STARS_FOR_LOG);
     }
 
-    private int applyIndicator(List<TradeData> tradeDataList) {
-        return (int) Math.round((double) indicator.apply(tradeDataList).getValue());
-    }
-
     private boolean isCurrentCandleStickChanged(TradeData tradeData) {
         return closeTimeOfCurrentCandleStick == null || closeTimeOfCurrentCandleStick.compareTo(tradeData.getEventTime()) < 0;
     }
 
-    private void tradeIfLatestOrderChanged(TradeData tradeData, int previousHullMovingAverage, int hullMovingAverage) {
+    private void tradeIfLatestOrderChanged(TradeData tradeData, CommercialFlag commercialFlag) {
         logStars();
-        if (hullMovingAverage > previousHullMovingAverage && !lastDecision.equals(CommercialDecision.BUY)) {
-            buy(tradeData);
-        } else if (hullMovingAverage < previousHullMovingAverage && !lastDecision.equals(CommercialDecision.SELL)) {
-            sell(tradeData);
-        } else {
-            logger.info(NO_TRADE_LOG_MESSAGE);
-            logPrice(tradeData);
-        }
+        actionMap.get(commercialFlag).accept(tradeData);
+        logStars();
+    }
 
-        logHMAs(previousHullMovingAverage, hullMovingAverage);
-        logStars();
+    private void noTrade(TradeData tradeData) {
+        logger.info(NO_TRADE_LOG_MESSAGE);
+        logPrice(tradeData);
     }
 
     private void sell(TradeData tradeData) {
-        tradeClient.sell(tradeData);
-        lastDecision = CommercialDecision.SELL;
+        if (!lastDecision.equals(CommercialFlag.SELL)) {
+            tradeClient.sell(tradeData);
+            lastDecision = CommercialFlag.SELL;
+        }
     }
     
     private void buy(TradeData tradeData) {
-        tradeClient.buy(tradeData);
-        lastDecision = CommercialDecision.BUY;
+        if (!lastDecision.equals(CommercialFlag.BUY)) {
+            tradeClient.buy(tradeData);
+            lastDecision = CommercialFlag.BUY;
+        }
     }
     
     private List<TradeData> mapClosingTradeDataListTillPreviousBar(List<CandleStickData> allCandleStickData) {
         int limitedSize = allCandleStickData.size() - 1;
-        return mapClosingTradeDataTillLimitedSize(allCandleStickData, limitedSize);
-    }
-
-    private List<TradeData> mapClosingTradeDataListTillTwoPreviousBar(List<CandleStickData> allCandleStickData) {
-        int limitedSize = allCandleStickData.size() - 2;
         return mapClosingTradeDataTillLimitedSize(allCandleStickData, limitedSize);
     }
 

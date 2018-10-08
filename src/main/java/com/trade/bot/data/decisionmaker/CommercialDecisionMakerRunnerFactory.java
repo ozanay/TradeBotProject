@@ -18,7 +18,7 @@ public class CommercialDecisionMakerRunnerFactory {
     public static CommercialDecisionMakerRunner create(String indicatorParameters, TradeClient tradeClient,
                     TradeSymbol tradeSymbol, TradeClientCandleStickInterval candleStickInterval) throws IOException {
         Indicator indicator = IndicatorFactory.getIndicator(indicatorParameters);
-        CommercialDecisionMaker commercialDecisionMaker = new HullMovingAverageDecisionMaker(indicator, tradeClient, tradeSymbol, candleStickInterval);
+        CommercialDecisionApplier commercialDecisionMaker = new IndicatorCommercialDecisionApplier(indicator, tradeClient, tradeSymbol, candleStickInterval);
 
         return new CommercialDecisionMakerRunner(commercialDecisionMaker);
     }

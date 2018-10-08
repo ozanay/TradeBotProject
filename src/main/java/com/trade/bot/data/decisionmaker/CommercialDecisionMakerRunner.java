@@ -8,19 +8,19 @@ import java.util.concurrent.Executors;
  */
 public class CommercialDecisionMakerRunner {
     private final ExecutorService executorService = Executors.newFixedThreadPool(1);
-    private final CommercialDecisionMaker commercialDecisionMaker;
+    private final CommercialDecisionApplier commercialDecisionApplier;
     
-    CommercialDecisionMakerRunner(CommercialDecisionMaker commercialDecisionMaker) {
-        this.commercialDecisionMaker = commercialDecisionMaker;
+    CommercialDecisionMakerRunner(CommercialDecisionApplier commercialDecisionApplier) {
+        this.commercialDecisionApplier = commercialDecisionApplier;
     }
     
     public void start() {
-        commercialDecisionMaker.start();
-        executorService.submit(commercialDecisionMaker);
+        commercialDecisionApplier.start();
+        executorService.submit(commercialDecisionApplier);
     }
     
     public void stop() {
-        commercialDecisionMaker.stop();
+        commercialDecisionApplier.stop();
         if (!executorService.isShutdown()) {
             executorService.shutdownNow();
         }

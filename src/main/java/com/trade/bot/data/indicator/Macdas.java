@@ -1,32 +1,36 @@
-package com.trade.bot.data.indicator.macdas;
+package com.trade.bot.data.indicator;
+
+import static com.trade.bot.util.UtilConstants.ZERO;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import com.trade.bot.CommercialFlag;
 import com.trade.bot.TradeData;
 import com.trade.bot.data.indicator.Indicator;
+import com.trade.bot.logging.LoggerProvider;
 import com.trade.bot.util.JsonUtil;
-
-import static com.trade.bot.util.UtilConstants.ZERO;
 
 /**
  * @author Ozan Ay
  */
 public class Macdas implements Indicator {
-    private final FastMa fastMa;
-    private final SlowMa slowMa;
-    private final Signal signal;
-    private final SignalAs signalAs;
+    private static final Logger logger = LoggerProvider.getLogger(Macdas.class.getName());
+    private final MacdasFactor fastMa;
+    private final MacdasFactor slowMa;
+    private final MacdasFactor signal;
+    private final MacdasFactor signalAs;
     private boolean isInitialRun = true;
 
     Macdas(String parameters) throws IOException {
         MacdasParameters macdasParameters = JsonUtil.parse(parameters, MacdasParameters.class);
-        this.fastMa = new FastMa(macdasParameters.getFastPeriod());
-        this.slowMa = new SlowMa(macdasParameters.getSlowPeriod());
-        this.signal = new Signal(macdasParameters.getSignalPeriod());
-        this.signalAs = new SignalAs(macdasParameters.getSignalPeriod());
+        this.fastMa = new MacdasFactor(macdasParameters.getFastPeriod());
+        this.slowMa = new MacdasFactor(macdasParameters.getSlowPeriod());
+        this.signal = new MacdasFactor(macdasParameters.getSignalPeriod());
+        this.signalAs = new MacdasFactor(macdasParameters.getSignalPeriod());
     }
 
     @Override
@@ -75,6 +79,8 @@ public class Macdas implements Indicator {
         if (macdASValue < signalASValue) {
             commercialFlag = CommercialFlag.SELL;
         }
+
+        logger.log(Level.INFO, () -> String.format("macdAs: %s signalAS: %s", macdASValue, signalASValue));
 
         return commercialFlag;
     }

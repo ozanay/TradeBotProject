@@ -9,7 +9,9 @@ public enum IndicatorEnum {
     @JsonProperty("mavilim")
     MAVILIM("mavilim"),
     @JsonProperty("hma")
-    HULL_MOVING_AVERAGE("hma");
+    HULL_MOVING_AVERAGE("hma"),
+    @JsonProperty("macdas")
+    MACDAS("macdas");
     
     private final String id;
     
