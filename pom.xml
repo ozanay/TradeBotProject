@@ -27,6 +27,7 @@
                         </manifest>
                     </archive>
                     <finalName>Trader</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
                 <executions>
                     <execution>

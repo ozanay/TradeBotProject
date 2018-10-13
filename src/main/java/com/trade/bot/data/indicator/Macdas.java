@@ -88,6 +88,10 @@ public class Macdas implements Indicator {
     private double calculateMacdAS(Double price) {
         double fastValue = fastMa.calculate(price);
         double slowValue = slowMa.calculate(price);
+        if (fastValue == ZERO || slowValue == ZERO) {
+            return ZERO;
+        }
+
         double macdValue = fastValue - slowValue;
         double signalValue = signal.calculate(macdValue);
         return macdValue - signalValue;
