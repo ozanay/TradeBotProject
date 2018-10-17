@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 
 import com.trade.bot.CommercialFlag;
 import com.trade.bot.TradeData;
-import com.trade.bot.data.indicator.Indicator;
 import com.trade.bot.logging.LoggerProvider;
 import com.trade.bot.util.JsonUtil;
 
@@ -58,8 +57,22 @@ public class Macdas implements Indicator {
         double macdASValue = ZERO;
         double signalASValue = ZERO;
         for (Double price : prices) {
-            macdASValue = calculateMacdAS(price);
-            signalASValue = signalAs.calculate(macdASValue);
+            if (fastMa.isReady() && slowMa.isReady()) {
+                double macd = fastMa.calculate(price) - slowMa.calculate(price);
+                if (signal.isReady()) {
+                    macdASValue = macd - signal.calculate(macd);
+                    if (signalAs.isReady()) {
+                        signalASValue = signalAs.calculate(macdASValue);
+                    } else {
+                        signalAs.warmUp(macdASValue);
+                    }
+                } else {
+                    signal.warmUp(macd);
+                }
+            } else {
+                fastMa.warmUp(price);
+                slowMa.warmUp(price);
+            }
         }
 
         return decideFlag(macdASValue, signalASValue);

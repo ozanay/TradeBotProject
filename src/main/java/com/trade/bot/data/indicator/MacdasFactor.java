@@ -5,44 +5,36 @@ import com.trade.bot.util.math.ExponentialMovingAverage;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.trade.bot.util.UtilConstants.ZERO;
-
 /**
  * @author Ozan Ay
  */
 class MacdasFactor {
+    private final List<Double> valuesForEma = new ArrayList<>();
     private final ExponentialMovingAverage ema;
     private final int period;
-    private final List<Double> valuesForEma = new ArrayList<>();
+    private boolean isInitialRun = true;
 
     MacdasFactor(int period) {
         this.ema = new ExponentialMovingAverage(period);
         this.period = period;
     }
 
+    void warmUp(double value) {
+        valuesForEma.add(value);
+    }
+
     double calculate(double value) {
-        if (value <= ZERO) {
-            return ZERO;
-        }
+        return (isInitialRun) ? calculateInitialEma(value) : ema.calculateWithPreviousEma(value);
+    }
 
-        if (hasInsufficientNumberOfValuesForEmaCalculation()) {
-            valuesForEma.add(value);
-            return ZERO;
-        }
-
-        return (isInitialEmaCalculation()) ? calculateInitialEma(value) : ema.calculateWithPreviousEma(value);
+    boolean isReady() {
+        return valuesForEma.size() >= period;
     }
 
     private double calculateInitialEma(double value) {
         valuesForEma.add(value);
-        return ema.calculateInitiallyThroughList(valuesForEma);
-    }
-
-    private boolean hasInsufficientNumberOfValuesForEmaCalculation() {
-        return valuesForEma.size() < period;
-    }
-
-    private boolean isInitialEmaCalculation() {
-        return valuesForEma.size() == period;
+        double initialEma = this.ema.calculateInitiallyThroughList(valuesForEma);
+        isInitialRun = false;
+        return initialEma;
     }
 }

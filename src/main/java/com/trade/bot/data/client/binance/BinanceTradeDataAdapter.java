@@ -1,14 +1,10 @@
 package com.trade.bot.data.client.binance;
 
-import com.binance.api.client.domain.event.AggTradeEvent;
-import com.binance.api.client.domain.market.TickerPrice;
-import com.google.common.base.Ticker;
-import com.trade.bot.TradeData;
-import com.trade.bot.TradeSymbol;
-import com.trade.bot.util.DateUtil;
-
-import java.text.ParseException;
 import java.util.Date;
+
+import com.binance.api.client.domain.event.AggTradeEvent;
+import com.trade.bot.TradeData;
+import com.trade.bot.util.DateUtil;
 
 /**
  * @author Ozan Ay
