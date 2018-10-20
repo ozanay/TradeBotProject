@@ -48,7 +48,8 @@ public class Macdas implements Indicator {
 
     private CommercialFlag decideCommercialFlag(List<TradeData> tradeDataList) {
         double price = getLastPrice(tradeDataList);
-        double macdASValue = calculateMacdAS(price);
+        double macd = calculateMacd(price);
+        double macdASValue = calculateMacdAS(macd);
         double signalASValue = signalAs.calculate(macdASValue);
         return decideFlag(macdASValue, signalASValue);
     }
@@ -58,9 +59,9 @@ public class Macdas implements Indicator {
         double signalASValue = ZERO;
         for (Double price : prices) {
             if (fastMa.isReady() && slowMa.isReady()) {
-                double macd = fastMa.calculate(price) - slowMa.calculate(price);
+                double macd = calculateMacd(price);
                 if (signal.isReady()) {
-                    macdASValue = macd - signal.calculate(macd);
+                    macdASValue = calculateMacdAS(macd);
                     if (signalAs.isReady()) {
                         signalASValue = signalAs.calculate(macdASValue);
                     } else {
@@ -76,6 +77,14 @@ public class Macdas implements Indicator {
         }
 
         return decideFlag(macdASValue, signalASValue);
+    }
+
+    private double calculateMacdAS(double macd) {
+        return macd - signal.calculate(macd);
+    }
+
+    private double calculateMacd(double price) {
+        return fastMa.calculate(price) - slowMa.calculate(price);
     }
 
     private double getLastPrice(List<TradeData> tradeDataList) {
@@ -94,19 +103,6 @@ public class Macdas implements Indicator {
         }
 
         logger.log(Level.INFO, () -> String.format("macdAs: %s signalAS: %s", macdASValue, signalASValue));
-
         return commercialFlag;
-    }
-
-    private double calculateMacdAS(Double price) {
-        double fastValue = fastMa.calculate(price);
-        double slowValue = slowMa.calculate(price);
-        if (fastValue == ZERO || slowValue == ZERO) {
-            return ZERO;
-        }
-
-        double macdValue = fastValue - slowValue;
-        double signalValue = signal.calculate(macdValue);
-        return macdValue - signalValue;
     }
 }

@@ -75,7 +75,9 @@ public class IndicatorCommercialDecisionApplier implements CommercialDecisionApp
 
     private void decide(TradeData tradeData) {
         if (isCurrentCandleStickChanged(tradeData)) {
+            logStars();
             logger.info(BAR_CHANGED_LOG_MESSAGE);
+            logger.log(Level.INFO, () -> String.format("Trade data time is %s", DateUtil.format(tradeData.getEventTime())));
             List<CandleStickData> allCandleStickDataList = getAllCandleStickDataList();
 
             List<TradeData> closingTradeDataListTillPreviousBar = mapClosingTradeDataListTillPreviousBar(allCandleStickDataList);
@@ -83,6 +85,8 @@ public class IndicatorCommercialDecisionApplier implements CommercialDecisionApp
             tradeIfLatestOrderChanged(tradeData, flag);
 
             updateCloseTimeOfCurrentCandleStick(allCandleStickDataList);
+            logger.log(Level.INFO, () -> String.format("Current close time is %s", DateUtil.format(closeTimeOfCurrentCandleStick)));
+            logStars();
         }
     }
 
@@ -99,9 +103,7 @@ public class IndicatorCommercialDecisionApplier implements CommercialDecisionApp
     }
 
     private void tradeIfLatestOrderChanged(TradeData tradeData, CommercialFlag commercialFlag) {
-        logStars();
         actionMap.get(commercialFlag).accept(tradeData);
-        logStars();
     }
 
     private void noTrade(TradeData tradeData) {
@@ -113,6 +115,8 @@ public class IndicatorCommercialDecisionApplier implements CommercialDecisionApp
         if (!lastDecision.equals(CommercialFlag.SELL)) {
             tradeClient.sell(tradeData);
             lastDecision = CommercialFlag.SELL;
+        } else {
+            noTrade(tradeData);
         }
     }
     
@@ -120,6 +124,8 @@ public class IndicatorCommercialDecisionApplier implements CommercialDecisionApp
         if (!lastDecision.equals(CommercialFlag.BUY)) {
             tradeClient.buy(tradeData);
             lastDecision = CommercialFlag.BUY;
+        } else {
+            noTrade(tradeData);
         }
     }
     
