@@ -42,11 +42,15 @@ public class IndicatorCommercialDecisionApplier implements CommercialDecisionApp
         this.tradeClient = tradeClient;
         this.tradeSymbol = tradeSymbol;
         this.candleStickInterval = candleStickInterval;
+        initializeActions();
+    }
+
+    private void initializeActions() {
         actionMap.put(CommercialFlag.NONE, this::noTrade);
         actionMap.put(CommercialFlag.BUY, this::buy);
         actionMap.put(CommercialFlag.SELL, this::sell);
     }
-    
+
     @Override
     public void run() {
         while (isRunning.get()) {
@@ -75,19 +79,27 @@ public class IndicatorCommercialDecisionApplier implements CommercialDecisionApp
 
     private void decide(TradeData tradeData) {
         if (isCurrentCandleStickChanged(tradeData)) {
-            logStars();
-            logger.info(BAR_CHANGED_LOG_MESSAGE);
-            logger.log(Level.INFO, () -> String.format("Trade data time is %s", DateUtil.format(tradeData.getEventTime())));
             List<CandleStickData> allCandleStickDataList = getAllCandleStickDataList();
+            TradeData previousCandleStickCloseData = getPreviousCandleStickCloseData(allCandleStickDataList);
+            if (isCurrentCandleStickChanged(previousCandleStickCloseData)) {
+                logStars();
+                logger.info(BAR_CHANGED_LOG_MESSAGE);
+                logger.log(Level.INFO, () -> String.format("Trade data time is %s", DateUtil.format(tradeData.getEventTime())));
 
-            List<TradeData> closingTradeDataListTillPreviousBar = mapClosingTradeDataListTillPreviousBar(allCandleStickDataList);
-            CommercialFlag flag = indicator.apply(closingTradeDataListTillPreviousBar);
-            tradeIfLatestOrderChanged(tradeData, flag);
+                List<TradeData> closingTradeDataListTillPreviousBar = mapClosingTradeDataListTillPreviousBar(allCandleStickDataList);
+                CommercialFlag flag = indicator.apply(closingTradeDataListTillPreviousBar);
+                tradeIfLatestOrderChanged(tradeData, flag);
 
-            updateCloseTimeOfCurrentCandleStick(allCandleStickDataList);
-            logger.log(Level.INFO, () -> String.format("Current close time is %s", DateUtil.format(closeTimeOfCurrentCandleStick)));
-            logStars();
+                updateCloseTimeOfCurrentCandleStick(allCandleStickDataList);
+                logger.log(Level.INFO, () -> String.format("Current close time is %s", DateUtil.format(closeTimeOfCurrentCandleStick)));
+                logStars();
+            }
         }
+    }
+
+    private TradeData getPreviousCandleStickCloseData(List<CandleStickData> candleStickDataList) {
+        int lastElementIndex = candleStickDataList.size() - 1;
+        return candleStickDataList.get(lastElementIndex).getCloseTradeData();
     }
 
     private static void logPrice(TradeData tradeData) {
