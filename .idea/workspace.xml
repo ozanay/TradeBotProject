@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a5a3dd86-48c4-47aa-9ba6-22c2543dcf4f" name="Default" comment="version change">
+    <list default="true" id="a5a3dd86-48c4-47aa-9ba6-22c2543dcf4f" name="Default" comment="JVM option">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
@@ -127,16 +127,16 @@
         <counts>
           <entry key="dummy" value="231" />
           <entry key="java" value="9844" />
-          <entry key="txt" value="446" />
-          <entry key="xml" value="55" />
+          <entry key="txt" value="458" />
+          <entry key="xml" value="58" />
           <entry key="yml" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JAVA" value="9844" />
-          <entry key="PLAIN_TEXT" value="677" />
-          <entry key="XML" value="55" />
+          <entry key="PLAIN_TEXT" value="689" />
+          <entry key="XML" value="58" />
           <entry key="YAML" value="14" />
         </counts>
       </usages-collector>
@@ -167,8 +167,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="48" column="38" selection-start-line="48" selection-start-column="38" selection-end-line="48" selection-end-column="38" />
+            <state relative-caret-position="128">
+              <caret line="48" column="36" selection-start-line="48" selection-start-column="36" selection-end-line="48" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -177,7 +177,7 @@
         <entry file="file://$PROJECT_DIR$/.circleci/config.yml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="527">
-              <caret line="40" column="19" lean-forward="true" selection-start-line="40" selection-start-column="19" selection-end-line="40" selection-end-column="19" />
+              <caret line="40" column="19" selection-start-line="40" selection-start-column="19" selection-end-line="40" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -363,7 +363,7 @@
     <property name="SearchEverywhereHistoryKey" value="Macdas&#9;FILE&#9;file://C:/Users/OPC/Desktop/TradeBot/TradeBotProject/src/main/java/com/trade/bot/data/indicator/Macdas.java&#10;Interval&#9;FILE&#9;file://C:/Users/OPC/Desktop/TradeBot/TradeBotProject/src/main/java/com/trade/bot/data/client/TradeClientCandleStickInterval.java&#10;BotRunner&#9;FILE&#9;file://C:/Users/OPC/Desktop/Binance/TradeBotProject/src/main/java/com/trade/bot/BotRunner.java&#10;Mavili&#9;FILE&#9;file://C:/Users/OPC/Desktop/Binance/TradeBotProject/src/main/java/com/trade/bot/data/indicator/MavilimTransform.java&#10;Adap&#9;PSI&#9;JAVA://com.trade.bot.data.client.BinanceTradeDataAdapter&#10;Date&#9;FILE&#9;file://C:/Users/OPC/Desktop/Binance/TradeBotProject/src/main/java/com/trade/bot/util/DateUtil.java&#10;Circula&#9;FILE&#9;file://C:/Users/OPC/Desktop/Binance/TradeBotProject/src/main/java/com/trade/bot/CircularArray.java" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541273664000" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541275777945" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -616,7 +616,7 @@
       <workItem from="1540059818313" duration="7296000" />
       <workItem from="1540129815530" duration="5295000" />
       <workItem from="1540230432708" duration="624000" />
-      <workItem from="1541253503376" duration="6110000" />
+      <workItem from="1541253503376" duration="7001000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1530962005617</created>
@@ -947,7 +947,14 @@
       <option name="project" value="LOCAL" />
       <updated>1541258688566</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="JVM option">
+      <created>1541273679313</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1541273679313</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -983,7 +990,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="205910000" />
+    <option name="totallyTimeSpent" value="206801000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1026,7 +1033,7 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.27651006" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="right" id="Maven Projects" order="5" visible="true" weight="0.14966443" />
+      <window_info active="true" anchor="right" id="Maven Projects" order="5" visible="true" weight="0.14966443" />
       <window_info anchor="right" id="Database" order="6" show_stripe_button="false" weight="0.3295302" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
@@ -1076,7 +1083,6 @@
       <path value="$PROJECT_DIR$" />
       <path value="$PROJECT_DIR$/TradeBot" />
     </ignored-roots>
-    <MESSAGE value="Mavilim decision maker is implemented." />
     <MESSAGE value="All components are combined.&#10;Edit in WMA function." />
     <MESSAGE value="Mavilim transform fix." />
     <MESSAGE value="Hull moving average" />
@@ -1101,7 +1107,8 @@
     <MESSAGE value="Change" />
     <MESSAGE value="arg line" />
     <MESSAGE value="version change" />
-    <option name="LAST_COMMIT_MESSAGE" value="version change" />
+    <MESSAGE value="JVM option" />
+    <option name="LAST_COMMIT_MESSAGE" value="JVM option" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1394,14 +1401,14 @@
     <entry file="file://$PROJECT_DIR$/.circleci/config.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
-          <caret line="40" column="19" lean-forward="true" selection-start-line="40" selection-start-column="19" selection-end-line="40" selection-end-column="19" />
+          <caret line="40" column="19" selection-start-line="40" selection-start-column="19" selection-end-line="40" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="48" column="38" selection-start-line="48" selection-start-column="38" selection-end-line="48" selection-end-column="38" />
+        <state relative-caret-position="128">
+          <caret line="48" column="36" selection-start-line="48" selection-start-column="36" selection-end-line="48" selection-end-column="36" />
         </state>
       </provider>
     </entry>
