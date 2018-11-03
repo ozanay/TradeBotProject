@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a5a3dd86-48c4-47aa-9ba6-22c2543dcf4f" name="Default" comment="Jdk change">
-      <change beforePath="$PROJECT_DIR$/.circleci/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.circleci/config.yml" afterDir="false" />
+    <list default="true" id="a5a3dd86-48c4-47aa-9ba6-22c2543dcf4f" name="Default" comment="Change">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
@@ -128,16 +127,16 @@
         <counts>
           <entry key="dummy" value="231" />
           <entry key="java" value="9844" />
-          <entry key="txt" value="417" />
-          <entry key="xml" value="51" />
+          <entry key="txt" value="424" />
+          <entry key="xml" value="52" />
           <entry key="yml" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JAVA" value="9844" />
-          <entry key="PLAIN_TEXT" value="648" />
-          <entry key="XML" value="51" />
+          <entry key="PLAIN_TEXT" value="655" />
+          <entry key="XML" value="52" />
           <entry key="YAML" value="14" />
         </counts>
       </usages-collector>
@@ -165,11 +164,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="44" column="31" selection-start-line="44" selection-start-column="31" selection-end-line="44" selection-end-column="31" />
+            <state relative-caret-position="250">
+              <caret line="48" column="69" selection-start-line="48" selection-start-column="69" selection-end-line="48" selection-end-column="69" />
             </state>
           </provider>
         </entry>
@@ -201,11 +200,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.circleci/config.yml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="487">
-              <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
+              <caret line="38" selection-start-line="38" selection-end-line="38" />
             </state>
           </provider>
         </entry>
@@ -295,8 +294,8 @@
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/indicator/Macdas.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/decisionmaker/IndicatorCommercialDecisionApplier.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/CommercialFlag.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/.circleci/config.yml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
@@ -391,7 +390,7 @@
     <property name="SearchEverywhereHistoryKey" value="Macdas&#9;FILE&#9;file://C:/Users/OPC/Desktop/TradeBot/TradeBotProject/src/main/java/com/trade/bot/data/indicator/Macdas.java&#10;Interval&#9;FILE&#9;file://C:/Users/OPC/Desktop/TradeBot/TradeBotProject/src/main/java/com/trade/bot/data/client/TradeClientCandleStickInterval.java&#10;BotRunner&#9;FILE&#9;file://C:/Users/OPC/Desktop/Binance/TradeBotProject/src/main/java/com/trade/bot/BotRunner.java&#10;Mavili&#9;FILE&#9;file://C:/Users/OPC/Desktop/Binance/TradeBotProject/src/main/java/com/trade/bot/data/indicator/MavilimTransform.java&#10;Adap&#9;PSI&#9;JAVA://com.trade.bot.data.client.BinanceTradeDataAdapter&#10;Date&#9;FILE&#9;file://C:/Users/OPC/Desktop/Binance/TradeBotProject/src/main/java/com/trade/bot/util/DateUtil.java&#10;Circula&#9;FILE&#9;file://C:/Users/OPC/Desktop/Binance/TradeBotProject/src/main/java/com/trade/bot/CircularArray.java" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541257643607" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541257664347" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -644,7 +643,7 @@
       <workItem from="1540059818313" duration="7296000" />
       <workItem from="1540129815530" duration="5295000" />
       <workItem from="1540230432708" duration="624000" />
-      <workItem from="1541253503376" duration="4122000" />
+      <workItem from="1541253503376" duration="4741000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1530962005617</created>
@@ -954,7 +953,14 @@
       <option name="project" value="LOCAL" />
       <updated>1541257355024</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="Change">
+      <created>1541257655922</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1541257655922</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -990,7 +996,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="203922000" />
+    <option name="totallyTimeSpent" value="204541000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1083,7 +1089,6 @@
       <path value="$PROJECT_DIR$" />
       <path value="$PROJECT_DIR$/TradeBot" />
     </ignored-roots>
-    <MESSAGE value="Changing" />
     <MESSAGE value="Client adapters and new functions." />
     <MESSAGE value="Web Socket client will hold the decision maker." />
     <MESSAGE value="Mavilim decision maker is implemented." />
@@ -1108,7 +1113,8 @@
     <MESSAGE value="Plugin change" />
     <MESSAGE value="Ci change" />
     <MESSAGE value="Jdk change" />
-    <option name="LAST_COMMIT_MESSAGE" value="Jdk change" />
+    <MESSAGE value="Change" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1398,17 +1404,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="44" column="31" selection-start-line="44" selection-start-column="31" selection-end-line="44" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.circleci/config.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="487">
-          <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
+          <caret line="38" selection-start-line="38" selection-end-line="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="48" column="69" selection-start-line="48" selection-start-column="69" selection-end-line="48" selection-end-column="69" />
         </state>
       </provider>
     </entry>

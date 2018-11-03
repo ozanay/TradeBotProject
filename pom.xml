@@ -46,6 +46,7 @@
                 <configuration>
                     <id>default-test</id>
                     <skip>false</skip>
+                    <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
                 </configuration>
             </plugin>
         </plugins>
