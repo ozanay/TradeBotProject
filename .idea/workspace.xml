@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a5a3dd86-48c4-47aa-9ba6-22c2543dcf4f" name="Default" comment="CircleCi Config">
+      <change beforePath="$PROJECT_DIR$/.circleci/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.circleci/config.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
@@ -128,7 +129,7 @@
           <entry key="dummy" value="231" />
           <entry key="java" value="9844" />
           <entry key="txt" value="473" />
-          <entry key="xml" value="69" />
+          <entry key="xml" value="71" />
           <entry key="yml" value="53" />
         </counts>
       </usages-collector>
@@ -136,7 +137,7 @@
         <counts>
           <entry key="JAVA" value="9844" />
           <entry key="PLAIN_TEXT" value="704" />
-          <entry key="XML" value="69" />
+          <entry key="XML" value="71" />
           <entry key="YAML" value="53" />
         </counts>
       </usages-collector>
@@ -169,8 +170,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="298">
-              <caret line="51" column="21" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
+            <state relative-caret-position="544">
+              <caret line="50" column="31" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -178,8 +179,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.circleci/config.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="62">
-              <caret line="21" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="198">
+              <caret line="18" selection-start-line="18" selection-start-column="1" selection-end-line="20" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -376,7 +377,7 @@
     <property name="SearchEverywhereHistoryKey" value="Macdas&#9;FILE&#9;file://C:/Users/OPC/Desktop/TradeBot/TradeBotProject/src/main/java/com/trade/bot/data/indicator/Macdas.java&#10;Interval&#9;FILE&#9;file://C:/Users/OPC/Desktop/TradeBot/TradeBotProject/src/main/java/com/trade/bot/data/client/TradeClientCandleStickInterval.java&#10;BotRunner&#9;FILE&#9;file://C:/Users/OPC/Desktop/Binance/TradeBotProject/src/main/java/com/trade/bot/BotRunner.java&#10;Mavili&#9;FILE&#9;file://C:/Users/OPC/Desktop/Binance/TradeBotProject/src/main/java/com/trade/bot/data/indicator/MavilimTransform.java&#10;Adap&#9;PSI&#9;JAVA://com.trade.bot.data.client.BinanceTradeDataAdapter&#10;Date&#9;FILE&#9;file://C:/Users/OPC/Desktop/Binance/TradeBotProject/src/main/java/com/trade/bot/util/DateUtil.java&#10;Circula&#9;FILE&#9;file://C:/Users/OPC/Desktop/Binance/TradeBotProject/src/main/java/com/trade/bot/CircularArray.java" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541277574634" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541277744043" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -629,14 +630,7 @@
       <workItem from="1540059818313" duration="7296000" />
       <workItem from="1540129815530" duration="5295000" />
       <workItem from="1540230432708" duration="624000" />
-      <workItem from="1541253503376" duration="8786000" />
-    </task>
-    <task id="LOCAL-00008" summary="Web socket client was added. Basic reading and getting data periodically were implemented.">
-      <created>1531857554842</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1531857554842</updated>
+      <workItem from="1541253503376" duration="8954000" />
     </task>
     <task id="LOCAL-00009" summary="Initial inducator">
       <created>1532028621044</created>
@@ -974,7 +968,14 @@
       <option name="project" value="LOCAL" />
       <updated>1541277318755</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="CircleCi Config">
+      <created>1541277613863</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1541277613863</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1010,7 +1011,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="208586000" />
+    <option name="totallyTimeSpent" value="208754000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1034,7 +1035,7 @@
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32907802" />
-      <window_info active="true" anchor="bottom" x="0" y="292" width="1536" height="239" id="Run" order="2" visible="true" weight="0.29078013" />
+      <window_info anchor="bottom" x="0" y="292" width="1536" height="239" id="Run" order="2" weight="0.54042554" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.61560285" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1422,15 +1423,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.circleci/config.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="62">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        <state relative-caret-position="198">
+          <caret line="18" selection-start-line="18" selection-start-column="1" selection-end-line="20" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="51" column="21" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
+        <state relative-caret-position="544">
+          <caret line="50" column="31" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="31" />
         </state>
       </provider>
     </entry>
