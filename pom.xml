@@ -46,7 +46,7 @@
                 <configuration>
                     <id>default-test</id>
                     <skip>false</skip>
-                    <argLine>-Xmx512m</argLine>
+                    <argLine>-Xmx256m</argLine>
                 </configuration>
             </plugin>
         </plugins>
