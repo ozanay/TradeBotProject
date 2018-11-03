@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a5a3dd86-48c4-47aa-9ba6-22c2543dcf4f" name="Default" comment="JVM option">
+    <list default="true" id="a5a3dd86-48c4-47aa-9ba6-22c2543dcf4f" name="Default" comment="CircleCi Config">
       <change beforePath="$PROJECT_DIR$/.circleci/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.circleci/config.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -128,23 +127,24 @@
         <counts>
           <entry key="dummy" value="231" />
           <entry key="java" value="9844" />
-          <entry key="txt" value="458" />
+          <entry key="txt" value="473" />
           <entry key="xml" value="62" />
-          <entry key="yml" value="21" />
+          <entry key="yml" value="37" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JAVA" value="9844" />
-          <entry key="PLAIN_TEXT" value="689" />
+          <entry key="PLAIN_TEXT" value="704" />
           <entry key="XML" value="62" />
-          <entry key="YAML" value="21" />
+          <entry key="YAML" value="37" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="class" value="3" />
           <entry key="java" value="96" />
+          <entry key="txt" value="1" />
           <entry key="xml" value="3" />
           <entry key="xsd" value="1" />
           <entry key="yml" value="1" />
@@ -154,6 +154,7 @@
         <counts>
           <entry key="CLASS" value="3" />
           <entry key="JAVA" value="96" />
+          <entry key="PLAIN_TEXT" value="1" />
           <entry key="XML" value="4" />
           <entry key="YAML" value="1" />
         </counts>
@@ -165,20 +166,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="48" column="32" lean-forward="true" selection-start-line="48" selection-start-column="32" selection-end-line="48" selection-end-column="32" />
+            <state relative-caret-position="170">
+              <caret line="10" column="13" lean-forward="true" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="25" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.circleci/config.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="20" column="25" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
+            <state relative-caret-position="249">
+              <caret line="20" column="26" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -268,8 +269,8 @@
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/indicator/Macdas.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/data/decisionmaker/IndicatorCommercialDecisionApplier.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/trade/bot/CommercialFlag.java" />
-        <option value="$PROJECT_DIR$/.circleci/config.yml" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/.circleci/config.yml" />
       </list>
     </option>
   </component>
@@ -353,6 +354,17 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="bot" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="TradeBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TradeBotProject" type="462c0819:PsiDirectoryNode" />
+              <item name="target" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TradeBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TradeBotProject" type="462c0819:PsiDirectoryNode" />
+              <item name="target" type="462c0819:PsiDirectoryNode" />
+              <item name="surefire-reports" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -364,7 +376,7 @@
     <property name="SearchEverywhereHistoryKey" value="Macdas&#9;FILE&#9;file://C:/Users/OPC/Desktop/TradeBot/TradeBotProject/src/main/java/com/trade/bot/data/indicator/Macdas.java&#10;Interval&#9;FILE&#9;file://C:/Users/OPC/Desktop/TradeBot/TradeBotProject/src/main/java/com/trade/bot/data/client/TradeClientCandleStickInterval.java&#10;BotRunner&#9;FILE&#9;file://C:/Users/OPC/Desktop/Binance/TradeBotProject/src/main/java/com/trade/bot/BotRunner.java&#10;Mavili&#9;FILE&#9;file://C:/Users/OPC/Desktop/Binance/TradeBotProject/src/main/java/com/trade/bot/data/indicator/MavilimTransform.java&#10;Adap&#9;PSI&#9;JAVA://com.trade.bot.data.client.BinanceTradeDataAdapter&#10;Date&#9;FILE&#9;file://C:/Users/OPC/Desktop/Binance/TradeBotProject/src/main/java/com/trade/bot/util/DateUtil.java&#10;Circula&#9;FILE&#9;file://C:/Users/OPC/Desktop/Binance/TradeBotProject/src/main/java/com/trade/bot/CircularArray.java" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541275959505" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541276720441" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -617,21 +629,7 @@
       <workItem from="1540059818313" duration="7296000" />
       <workItem from="1540129815530" duration="5295000" />
       <workItem from="1540230432708" duration="624000" />
-      <workItem from="1541253503376" duration="7181000" />
-    </task>
-    <task id="LOCAL-00002" summary="Initial trade client and data manager implementation.">
-      <created>1530971857289</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1530971857289</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Drain method was added.">
-      <created>1530973061297</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1530973061297</updated>
+      <workItem from="1541253503376" duration="7938000" />
     </task>
     <task id="LOCAL-00004" summary="Data reader and template of data store were created.">
       <created>1530991569388</created>
@@ -962,7 +960,21 @@
       <option name="project" value="LOCAL" />
       <updated>1541275894232</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="JVM option">
+      <created>1541275966192</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1541275966192</updated>
+    </task>
+    <task id="LOCAL-00052" summary="CircleCi Config">
+      <created>1541276458291</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1541276458291</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -998,7 +1010,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="206981000" />
+    <option name="totallyTimeSpent" value="207738000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1013,7 +1025,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4992908" visible="true" weight="0.18389262" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4992908" visible="true" weight="0.18389262" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -1041,7 +1053,7 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.27651006" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info active="true" anchor="right" id="Maven Projects" order="5" visible="true" weight="0.14966443" />
+      <window_info anchor="right" id="Maven Projects" order="5" visible="true" weight="0.14966443" />
       <window_info anchor="right" id="Database" order="6" show_stripe_button="false" weight="0.3295302" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
@@ -1091,7 +1103,6 @@
       <path value="$PROJECT_DIR$" />
       <path value="$PROJECT_DIR$/TradeBot" />
     </ignored-roots>
-    <MESSAGE value="All components are combined.&#10;Edit in WMA function." />
     <MESSAGE value="Mavilim transform fix." />
     <MESSAGE value="Hull moving average" />
     <MESSAGE value="Merge" />
@@ -1116,7 +1127,8 @@
     <MESSAGE value="arg line" />
     <MESSAGE value="version change" />
     <MESSAGE value="JVM option" />
-    <option name="LAST_COMMIT_MESSAGE" value="JVM option" />
+    <MESSAGE value="CircleCi Config" />
+    <option name="LAST_COMMIT_MESSAGE" value="CircleCi Config" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1171,7 +1183,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/data/client/binance/BinanceWebSocketClient.java" />
     <entry file="jar://$MAVEN_REPOSITORY$/com/beust/jcommander/1.72/jcommander-1.72.jar!/com/beust/jcommander/JCommander.class" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/trade/bot/TradeData.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1406,17 +1417,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.circleci/config.yml">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="20" column="25" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
+        <state relative-caret-position="170">
+          <caret line="10" column="13" lean-forward="true" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/target/surefire-reports/TestSuite.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.circleci/config.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="48" column="32" lean-forward="true" selection-start-line="48" selection-start-column="32" selection-end-line="48" selection-end-column="32" />
+        <state relative-caret-position="249">
+          <caret line="20" column="26" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
         </state>
       </provider>
     </entry>
