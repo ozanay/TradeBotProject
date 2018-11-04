@@ -1,16 +1,16 @@
 package com.trade.bot.data.client.binance;
 
+import java.util.EnumMap;
+import java.util.Map;
+
 import com.binance.api.client.domain.market.CandlestickInterval;
 import com.trade.bot.data.client.TradeClientCandleStickInterval;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Ozan Ay
  */
-public class BinanceCandleStickIntervalConverter {
-    private static final Map<TradeClientCandleStickInterval, CandlestickInterval> intervalConversionMap = new HashMap<>();
+class BinanceCandleStickIntervalConverter {
+    private static final Map<TradeClientCandleStickInterval, CandlestickInterval> intervalConversionMap = new EnumMap<>(TradeClientCandleStickInterval.class);
     static {
         intervalConversionMap.put(TradeClientCandleStickInterval.ONE_MINUTE, CandlestickInterval.ONE_MINUTE);
         intervalConversionMap.put(TradeClientCandleStickInterval.THREE_MINUTES, CandlestickInterval.THREE_MINUTES);
@@ -28,6 +28,8 @@ public class BinanceCandleStickIntervalConverter {
         intervalConversionMap.put(TradeClientCandleStickInterval.WEEKLY, CandlestickInterval.WEEKLY);
         intervalConversionMap.put(TradeClientCandleStickInterval.MONTHLY, CandlestickInterval.MONTHLY);
     }
+
+    private BinanceCandleStickIntervalConverter() {}
 
     static CandlestickInterval from(TradeClientCandleStickInterval interval) {
         return intervalConversionMap.get(interval);

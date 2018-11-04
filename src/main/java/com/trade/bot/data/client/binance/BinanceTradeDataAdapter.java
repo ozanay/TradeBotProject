@@ -30,7 +30,7 @@ public class BinanceTradeDataAdapter implements TradeData {
 
     @Override
     public Date getEventTime() {
-        return this.eventTime;
+        return new Date(eventTime.getTime());
     }
 
     @Override

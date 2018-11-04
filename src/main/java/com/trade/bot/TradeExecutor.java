@@ -33,16 +33,6 @@ class TradeExecutor {
         logger.info("Trader is running.");
     }
     
-    void stop() {
-        if (runner != null) {
-            runner.stop();
-        } else {
-            logger.log(Level.SEVERE, () -> "RUNNER is empty.");
-        }
-
-        System.exit(0);
-    }
-    
     private static void createRunner(InitialConfiguration initialConfiguration) throws IOException {
         TradeClient tradeClient = TradeClientFactory.create();
         IndicatorFeature indicatorFeature = initialConfiguration.getIndicatorFeature();

@@ -38,10 +38,11 @@ public class ExponentialMovingAverage {
     }
 
     public double calculateWithPreviousEma(double value) {
-        if (ema == Double.MIN_VALUE) {
+        if (Double.compare(ema, Double.MIN_VALUE) == 0) {
             throw new IllegalArgumentException("Initial calculation is necessary.");
         }
 
-        return ema = (value - ema) * multiplier + ema;
+        ema = (value - ema) * multiplier + ema;
+        return ema;
     }
 }

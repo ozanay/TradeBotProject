@@ -7,8 +7,10 @@ import static com.trade.bot.util.UtilConstants.ZERO;
 /**
  * @author Ozan Ay
  */
-public class SimpleMovingAverage {
-    public static double calculateMostRecently(List<Double> values, int period) {
+class SimpleMovingAverage {
+    private SimpleMovingAverage() {}
+
+    static double calculateMostRecently(List<Double> values, int period) {
         double sumOfPeriodValues = calculateMostRecentlySumOfPeriodValues(values, period);
         return sumOfPeriodValues / period;
     }

@@ -5,9 +5,12 @@ import java.util.List;
 /**
  * @author Ozan Ay
  */
-public class MathUtil {
+class MathUtil {
     private static final double ZERO = 0.0;
-    public static double calculateWeightedMovingAverage(List<Double> values, int timePeriod) {
+
+    private MathUtil() {}
+
+    static double calculateWeightedMovingAverage(List<Double> values, int timePeriod) {
         if (timePeriod < 0 || timePeriod > values.size()) {
             throw new IllegalArgumentException("Invalid time period.");
         }

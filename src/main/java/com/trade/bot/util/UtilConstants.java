@@ -5,4 +5,6 @@ package com.trade.bot.util;
  */
 public class UtilConstants {
     public static final double ZERO = 0.0;
+
+    private UtilConstants() {}
 }
